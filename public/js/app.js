@@ -84870,21 +84870,49 @@ var ParentNav = /*#__PURE__*/function (_React$Component) {
 
   var _super = _createSuper(ParentNav);
 
-  function ParentNav() {
+  function ParentNav(props) {
+    var _this;
+
     _classCallCheck(this, ParentNav);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this, props);
+    _this.handleScroll = _this.handleScroll.bind(_assertThisInitialized(_this));
+    _this.state = {
+      navbar: false
+    };
+    return _this;
   }
 
   _createClass(ParentNav, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      window.addEventListener('scroll', this.handleScroll, {
+        passive: true
+      });
+    }
+  }, {
+    key: "handleScroll",
+    value: function handleScroll(e) {
+      // console.log(window.scrollY);
+      if (window.scrollY >= 80) {
+        this.setState({
+          navbar: true
+        });
+      } else {
+        this.setState({
+          navbar: false
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Navbar"], {
         collapseOnSelect: true,
         expand: "lg",
-        bg: "dark",
+        bg: this.state.navbar ? 'dark' : 'transparent',
         variant: "dark",
-        sticky: "top"
+        fixed: "top"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Navbar"].Brand, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_reach_router__WEBPACK_IMPORTED_MODULE_2__["Link"], {
         to: "/"
       }, "GURLS")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Navbar"].Toggle, {

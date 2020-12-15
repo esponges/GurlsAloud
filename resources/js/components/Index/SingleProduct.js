@@ -1,7 +1,7 @@
 import Axios from "axios";
 import React from "react";
 import Footer from "../Layouts/Footer";
-import Navbar from "../Layouts/Navbar";
+import ParentNav from "../Layouts/Navbar";
 import Masthead from "./Masthead";
 import { Link } from "@reach/router";
 
@@ -16,9 +16,11 @@ class SingleProduct extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
+
         Axios.get(`http://127.0.0.1:8000/cart/add-item/${this.props.id}`).then(
             res => {
                 console.log("success adding to cart", res.data);
+                window.alert(`${this.state.data.name} añadido al carrito`);
             }
         );
     }
@@ -29,14 +31,14 @@ class SingleProduct extends React.Component {
                 this.setState({ data: res.data });
             }
         );
-        console.log("component Did Mount - success", this.props.id);
+        console.log("component Did Mount - product", this.props.id);
     }
 
     render() {
         const { data } = this.state;
         return (
             <div>
-                <Navbar />
+                <ParentNav />
                 <Masthead />
                 <div className="container mt-5 mb-5" id="card-product">
                     <div className="row">
@@ -55,13 +57,14 @@ class SingleProduct extends React.Component {
                                         $ {data.price} mxn
                                     </h5>
                                     {/* <form onSubmit={this.onSubmit} method="get"> */}
-                                        {/* <input type="hidden" value={data.id} id="id"/> */}
-                                        <button onClick={this.onSubmit}
-                                            className="btn btn-primary"
-                                            type="submit"
-                                        >
-                                            Añadir al carrito
-                                        </button>
+                                    {/* <input type="hidden" value={data.id} id="id"/> */}
+                                    <button
+                                        onClick={this.onSubmit}
+                                        className="btn btn-primary"
+                                        type="submit"
+                                    >
+                                        Añadir al carrito
+                                    </button>
                                     {/* </form>{" "} */}
                                     {"   "}
                                     <Link

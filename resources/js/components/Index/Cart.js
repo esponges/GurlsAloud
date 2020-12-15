@@ -1,7 +1,7 @@
 import Axios from "axios";
 import React, { Component } from "react";
 import Footer from "../Layouts/Footer";
-import Navbar from "../Layouts/Navbar";
+import ParentNav from "../Layouts/Navbar";
 import {Link} from '@reach/router'
 
 class Cart extends Component {
@@ -13,15 +13,20 @@ class Cart extends Component {
         };
     }
 
-    removeItem(e) {
+    removeItem(id) {
         // e.preventDefault();
-        const id = e.target.dataset.value;
+        // const id = e.target.value;
         console.log(id);
-        Axios.get(`http://127.0.0.1:8000/cart/destroy/${id}`).then(res => {
+        Axios.get(`http://127.0.0.1:8000/cart/destroy/${id}`);
+        Axios.get("http://127.0.0.1:8000/cart").then(res => {
             this.setState({
                 cartItems: res.data
-            })
-        })
+            });
+        });
+        console.log('force update!');
+        this.forceUpdate();
+        window.alert('producto eliminado');
+        // this.useState(this.filter((diffId) => diffId !== id));
     }
 
     componentDidMount() {
@@ -35,9 +40,10 @@ class Cart extends Component {
 
     render() {
         const { cartItems } = this.state;
+        // console.log(cartItems);
         return (
             <div>
-                <Navbar />
+                <ParentNav />
                 {/* <Masthead /> */}
                 <div className="container mt-5 mb-5">
                     <table className="table">
@@ -59,8 +65,8 @@ class Cart extends Component {
                                         <td>{cartItem.quantity}</td>
                                         <td>
                                             <button
-                                                data-value={cartItem.id}
-                                                onClick={this.removeItem}
+                                                value={cartItem.id}
+                                                onClick={() => this.removeItem(cartItem.id)}
                                                 className="btn btn-danger"
                                             >
                                                 <i
