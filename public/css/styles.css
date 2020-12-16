@@ -10498,3 +10498,13 @@ section#contact form#contactForm :-ms-input-placeholder {
     margin: 0 auto;
     text-align: center;
 }
+
+.loader {
+    position: absolute;
+    width: 100px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}

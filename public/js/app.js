@@ -83851,6 +83851,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_Footer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Layouts/Footer */ "./resources/js/components/Layouts/Footer.js");
 /* harmony import */ var _Layouts_Navbar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Layouts/Navbar */ "./resources/js/components/Layouts/Navbar.js");
 /* harmony import */ var _reach_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @reach/router */ "./node_modules/@reach/router/es/index.js");
+/* harmony import */ var _loader_gif__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../loader.gif */ "./resources/js/loader.gif");
+/* harmony import */ var _loader_gif__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_loader_gif__WEBPACK_IMPORTED_MODULE_5__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -83879,6 +83881,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var Cart = /*#__PURE__*/function (_Component) {
   _inherits(Cart, _Component);
 
@@ -83892,7 +83895,9 @@ var Cart = /*#__PURE__*/function (_Component) {
     _this = _super.call(this, props);
     _this.removeItem = _this.removeItem.bind(_assertThisInitialized(_this));
     _this.state = {
-      cartItems: [{}]
+      cartItems: [{}],
+      loading: false,
+      error: ""
     };
     return _this;
   }
@@ -83904,25 +83909,45 @@ var Cart = /*#__PURE__*/function (_Component) {
 
       // e.preventDefault();
       // const id = e.target.value;
-      console.log(id);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/cart/destroy/".concat(id));
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/cart").then(function (res) {
-        _this2.setState({
-          cartItems: res.data
+      this.setState({
+        loading: true
+      }, function () {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/cart/destroy/".concat(id));
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/cart").then(function (res) {
+          _this2.setState({
+            cartItems: res.data,
+            loading: false
+          });
+        })["catch"](function (error) {
+          return _this2.setState({
+            loading: false,
+            error: error.res.data.message
+          });
         });
       });
-      console.log('force update!');
-      this.forceUpdate();
-      window.alert('producto eliminado'); // this.useState(this.filter((diffId) => diffId !== id));
+      console.log(id);
+      console.log("force update!");
+      this.forceUpdate(); // window.alert("producto eliminado");
+      // this.useState(this.filter((diffId) => diffId !== id));
     }
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this3 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/cart").then(function (res) {
-        _this3.setState({
-          cartItems: res.data
+      this.setState({
+        loading: true
+      }, function () {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/cart").then(function (res) {
+          _this3.setState({
+            cartItems: res.data,
+            loading: false
+          });
+        })["catch"](function (error) {
+          return _this3.setState({
+            loading: false,
+            error: error.res.data.message
+          });
         });
       });
       console.log("successfully retrieved cart items");
@@ -83932,9 +83957,18 @@ var Cart = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this4 = this;
 
-      var cartItems = this.state.cartItems; // console.log(cartItems);
+      var _this$state = this.state,
+          cartItems = _this$state.cartItems,
+          loading = _this$state.loading,
+          error = _this$state.error; // console.log(cartItems);
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Layouts_Navbar__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Layouts_Navbar__WEBPACK_IMPORTED_MODULE_3__["default"], null), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+        className: "loader",
+        src: _loader_gif__WEBPACK_IMPORTED_MODULE_5___default.a,
+        alt: "Loader"
+      }), error && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "alert alert-danger"
+      }, error), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "container mt-5 mb-5"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", {
         className: "table"
@@ -84941,6 +84975,17 @@ var ParentNav = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (ParentNav);
+
+/***/ }),
+
+/***/ "./resources/js/loader.gif":
+/*!*********************************!*\
+  !*** ./resources/js/loader.gif ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/loader.gif?394bafc3cc4dfb3a0ee48c1f54669539";
 
 /***/ }),
 
