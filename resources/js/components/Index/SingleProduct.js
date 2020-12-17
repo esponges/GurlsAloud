@@ -1,7 +1,7 @@
 import Axios from "axios";
 import React from "react";
 import Footer from "../Layouts/Footer";
-import ParentNav from "../Layouts/Navbar";
+import ParentNav from "../Layouts/ParentNav";
 import Masthead from "./Masthead";
 import { Link } from "@reach/router";
 
