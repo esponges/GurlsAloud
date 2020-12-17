@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div id='app'></div>
+<div id='mayki'></div>
 
 
 @endsection
