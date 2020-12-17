@@ -14,56 +14,24 @@ class OrderController extends Controller
 {
     public function newOrder(Request $request)
     {
-        // $order = new Order();
-        // $order->total = \Cart::getTotal();
-        // $order->total_items = \Cart::getTotalQuantity();
-        // $order->name = $request->input('name');
-        // $order->phone = $request->input('phone');
-        // $order->address = $request->input('address');
-        // // $order->payment_mode = $faker->numberBetween(1,2);
-        // $order->payment_mode = $request->input('payment_mode');
-        // $order->user_id = auth()->user();
-        // $order->save();
 
-        $item = Product::first();
-        $item2 = Product::find(2);
-        \Cart::add(array(
-            'id' => $item->id,
-            'name' => $item->name,
-            'price' => $item->price,
-            'quantity' => 2,
-            'attributes' => array(),
-            'associatedModel' => $item
-        ));
-        \Cart::add(array(
-            'id' => $item2->id,
-            'name' => $item2->name,
-            'price' => $item2->price,
-            'quantity' => 4,
-            'attributes' => array(),
-            'associatedModel' => $item2
-        ));
-
-
-        ////
-        $items = \Cart::getContent();
-        // dd($items->quantity);
-
-        // dd(\Cart::getTotal());
-        $faker = Factory::create();
+        // dd($request->all());
 
         $order = new Order();
         $order->total = \Cart::getTotal();
         $order->total_items = \Cart::getTotalQuantity();
-        $order->name = 'Paco';
-        $order->phone = '12345678';
-        $order->address = 'mi casa 123';
+        $order->name = $request->name;
+        $order->phone = $request->phone;
+        $order->address = $request->address;
         // $order->payment_mode = $faker->numberBetween(1,2);
-        $order->payment_mode = 2;
+        $order->payment_mode = $request->payment_mode;
         $order->user_id = User::first()->id;
+        // dd($order);
         $order->save();
 
-        foreach ($items as $item) {
+        $CartItems = \Cart::getContent();
+
+        foreach ($CartItems as $item) {
             DB::table('order_items')->insert([
                 'product_id' => $item->id,
                 'unit_price' => $item->price,

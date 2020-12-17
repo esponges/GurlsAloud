@@ -27,7 +27,7 @@ Route::get('/cart/add-item/{id}', [CartController::class, 'add'])->name('cart.ad
 Route::get('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 Route::get('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout')->middleware('auth');
 
-Route::post('order/create', [OrderController::class, 'newOrder'])->name('order.create')->middleware('auth');
+Route::post('/order/create', [OrderController::class, 'newOrder'])->name('order.create')->middleware('auth');
 
 Route::get('/paypal/checkout/{id}', [PaypalController::class, 'checkout'])->name('paypal.checkout')->middleware('auth');
 

@@ -7,13 +7,15 @@ class ParentNav extends React.Component {
         super(props);
         this.handleScroll = this.handleScroll.bind(this);
         this.state = {
-            navbar: false
+            navbar: false,
+            isMounted: false
         }
 
     }
 
     componentDidMount() {
         window.addEventListener('scroll', this.handleScroll, {passive: true});
+        this.state.isMounted = true
     }
 
     handleScroll (e) {
