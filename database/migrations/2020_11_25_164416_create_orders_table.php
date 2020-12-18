@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->string('phone');
             $table->string('address');
             $table->integer('payment_mode');
+            $table->integer('is_paid')->default(2);
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

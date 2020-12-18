@@ -18,7 +18,7 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-Route::get('/', [ProductController::class, 'index']);
+Route::get('/', [ProductController::class, 'index'])->name('index');
 Route::get('/products', [ProductController::class, 'display']);
 Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show');
 
@@ -29,7 +29,12 @@ Route::get('/cart/checkout', [CartController::class, 'checkout'])->name('cart.ch
 
 Route::post('/order/create', [OrderController::class, 'newOrder'])->name('order.create')->middleware('auth');
 
-Route::get('/paypal/checkout/{id}', [PaypalController::class, 'checkout'])->name('paypal.checkout')->middleware('auth');
+
+Route::group(['prefix' => 'paypal'], function () {
+    Route::get('/checkout/{orderId}', [PaypalController::class, 'checkout'])->name('paypal.checkout')->middleware('auth');
+    Route::get('/success/{orderId}', [PaypalController::class, 'getExpressCheckoutSuccess'])->name('paypal.success');
+
+});
 
 Auth::routes();
 
