@@ -1,6 +1,7 @@
 import React from "react";
 import { Navbar, NavDropdown, Nav } from "react-bootstrap";
-import { Link } from "@reach/router";
+// import { Link } from "@reach/router";
+import {Link} from 'react-router-dom';
 
 class ParentNav extends React.Component {
     constructor(props) {

@@ -2,7 +2,7 @@ import Axios from "axios";
 import React, { Component } from "react";
 import Footer from "../Layouts/Footer";
 import ParentNav from "../Layouts/ParentNav";
-import { Link } from "@reach/router";
+import { Link, Switch, useRouteMatch } from "react-router-dom";
 import Loader from "./../../loader.gif";
 
 class Cart extends Component {
@@ -60,6 +60,7 @@ class Cart extends Component {
     render() {
         const { cartItems, loading, error } = this.state;
         // console.log(cartItems);
+
         return (
             <div>
                 <ParentNav />

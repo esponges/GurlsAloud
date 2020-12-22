@@ -8,6 +8,9 @@ import ParentNav from "./Layouts/ParentNav";
 import Team from "./Index/Team";
 import Clients from "./Index/Clients";
 import Modal from "./Index/Modal";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import ReactDOM from "react-dom";
+import Cart from "./Checkout/Cart";
 
 class App extends React.Component {
     render() {
@@ -29,4 +32,4 @@ class App extends React.Component {
 
 export default App;
 
-// ReactDOM.render(<App />, document.getElementById("app"));
+// ReactDOM.render(<App />, document.getElementById("mayki"));

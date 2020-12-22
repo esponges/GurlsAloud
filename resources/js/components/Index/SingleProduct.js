@@ -3,21 +3,22 @@ import React from "react";
 import Footer from "../Layouts/Footer";
 import ParentNav from "../Layouts/ParentNav";
 import Masthead from "./Masthead";
-import { Link } from "@reach/router";
+import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 
 class SingleProduct extends React.Component {
     constructor(props) {
         super(props);
-        this.onSubmit = this.onSubmit.bind(this);
+        this.onClick = this.onClick.bind(this);
         this.state = {
             data: {}
         };
+
     }
 
-    onSubmit(e) {
+    onClick(e) {
         e.preventDefault();
-
-        Axios.get(`http://127.0.0.1:8000/cart/add-item/${this.props.id}`).then(
+        Axios.get(`http://127.0.0.1:8000/cart/add-item/${this.state.data.id}`).then(
             res => {
                 console.log("success adding to cart", res.data);
                 window.alert(`${this.state.data.name} añadido al carrito`);
@@ -26,7 +27,10 @@ class SingleProduct extends React.Component {
     }
 
     componentDidMount() {
-        Axios.get(`http://127.0.0.1:8000/product/${this.props.id}`).then(
+        // const { id } = this.props.match.params;
+        const id = this.props.match.params.id;
+        console.log(id);
+        Axios.get(`http://127.0.0.1:8000/product/${id}`).then(
             res => {
                 this.setState({ data: res.data });
             }
@@ -56,10 +60,10 @@ class SingleProduct extends React.Component {
                                     <h5 className="card-title">
                                         $ {data.price} mxn
                                     </h5>
-                                    {/* <form onSubmit={this.onSubmit} method="get"> */}
+                                    {/* <form onClick={this.onClick} method="get"> */}
                                     {/* <input type="hidden" value={data.id} id="id"/> */}
                                     <button
-                                        onClick={this.onSubmit}
+                                        onClick={this.onClick}
                                         className="btn btn-primary"
                                         type="submit"
                                     >
@@ -84,4 +88,4 @@ class SingleProduct extends React.Component {
     }
 }
 
-export default SingleProduct;
+export default withRouter(SingleProduct);
