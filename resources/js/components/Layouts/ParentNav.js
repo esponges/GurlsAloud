@@ -19,6 +19,10 @@ class ParentNav extends React.Component {
         this.state.isMounted = true
     }
 
+    componentWillUnmount() {
+        window.removeEventListener("scroll", this.handleScroll, { passive: true });
+    }
+
     handleScroll (e) {
         // console.log(window.scrollY);
         if (window.scrollY >= 80) {
