@@ -2,8 +2,10 @@ import Axios from "axios";
 import React, { Component } from "react";
 import Footer from "../Layouts/Footer";
 import ParentNav from "../Layouts/ParentNav";
-import { Link, Switch, useRouteMatch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Loader from "./../../loader.gif";
+import CheckoutForm from "./CheckoutForm";
+import {Route} from 'react-router-dom';
 
 class Cart extends Component {
     constructor(props) {
@@ -110,9 +112,9 @@ class Cart extends Component {
                         className="mt-5 mb-5 text"
                         style={{ display: "flex", justifyContent: "center" }}
                     >
-                        <Link to="/cart/checkout" className="btn btn-primary center">
+                        <a href="/cart/checkout" className="btn btn-primary center">
                             Pagar
-                        </Link>
+                        </a>
 
                         <Link to="/" className="btn btn-secondary center">
                             Regresar

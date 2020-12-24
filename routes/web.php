@@ -18,6 +18,10 @@ use App\Http\Controllers\ProductController;
 |
 */
 
+// Route::pattern('path', '[a-zA-Z0-9-/]+');
+// Route::any('{path}', function ($page) {
+//     return view('index');
+// });
 Route::get('/', [ProductController::class, 'index'])->name('index');
 Route::get('/products', [ProductController::class, 'display']);
 Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show');
