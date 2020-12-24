@@ -24,8 +24,6 @@ class CartController extends Controller
 
         $products = \Cart::getContent();
 
-        // dd($products);
-
         // return view('cart.index', compact('products'));
         return response()->json($products, 200);
     }
@@ -46,8 +44,7 @@ class CartController extends Controller
             'associatedModel' => $product
         ));
 
-        // dd(\Cart::getContent());
-        return 'added item to cart';
+        return response()->json(['added items to cart']);
         // return redirect('/');
     }
 
@@ -60,6 +57,27 @@ class CartController extends Controller
 
     public function checkout()
     {
-        return view('cart.checkout');
+        // $product = Product::first();
+
+        // // dd($product);
+
+        // \Cart::add(array(
+        //     'id' => $product->id,
+        //     'name' => $product->name,
+        //     'price' => $product->price,
+        //     'quantity' => 1,
+        //     'attributes' => array(),
+        //     'associatedModel' => $product
+        // ));
+        $user = auth()->user();
+
+        $cartTotal = \Cart::getTotal();
+        // dd($cartTotal);
+
+        if ($cartTotal != 0) {
+            return view('cart.checkout', compact('user'));
+        } else {
+            return redirect ('/');
+        }
     }
 }

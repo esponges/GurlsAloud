@@ -14,40 +14,42 @@ class OrderController extends Controller
 {
     public function newOrder(Request $request)
     {
+        if (auth()->user()) {
+            $order = new Order();
+            $order->total = \Cart::getTotal();
+            $order->total_items = \Cart::getTotalQuantity();
+            $order->name = $request->name;
+            $order->email = $request->email;
+            // $order->phone = $request->phone;
+            // $order->address = $request->address;
+            // $order->payment_mode = $faker->numberBetween(1,2);
+            $order->payment_mode = 2;
+            $order->user_id = auth()->user()->id;
+            $order->save();
 
-        // dd($request->all());
+            $CartItems = \Cart::getContent();
 
-        $order = new Order();
-        $order->total = \Cart::getTotal();
-        $order->total_items = \Cart::getTotalQuantity();
-        $order->name = $request->name;
-        $order->phone = $request->phone;
-        $order->address = $request->address;
-        // $order->payment_mode = $faker->numberBetween(1,2);
-        $order->payment_mode = $request->payment_mode;
-        $order->user_id = User::first()->id;
-        // dd($order);
-        $order->save();
+            foreach ($CartItems as $item) {
+                DB::table('order_items')->insert([
+                    'product_id' => $item->id,
+                    'unit_price' => $item->price,
+                    'order_id' => $order->id,
+                    'qty' => $item->quantity
+                ]);
+            }
+            if ($order->payment_mode == 1) {
 
-        $CartItems = \Cart::getContent();
+                //confirmation email
+                \Cart::clear();
+                return view('order.success', compact('order'));
 
-        foreach ($CartItems as $item) {
-            DB::table('order_items')->insert([
-                'product_id' => $item->id,
-                'unit_price' => $item->price,
-                'order_id' => $order->id,
-                'qty' => $item->quantity
-            ]);
-        }
-        if ($order->payment_mode == 1) {
+            } elseif ($order->payment_mode == 2) {
 
-            //confirmation email
-            \Cart::clear();
-            return view('order.success', compact('order'));
-
-        } elseif ($order->payment_mode == 2) {
-            //redirect to paypal payment controller
-            return redirect()->route('paypal.checkout', $order->id);
+                //redirect to paypal payment controller
+                return redirect()->route('paypal.checkout', $order->id);
+            }
+        } else {
+            dd('session timed out');
         }
     }
 }

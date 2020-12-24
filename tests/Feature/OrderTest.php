@@ -34,7 +34,7 @@ class OrderTest extends TestCase
         $user = User::first();
 
         $response = $this->actingAs($user)->post('/order/create');
-        $response->assertOk();
+        $response->assertResponse(302);
 
         // //fake cart
         // $item = Product::first();

@@ -18,8 +18,9 @@ class CreateOrdersTable extends Migration
             $table->float('total');
             $table->integer('total_items');
             $table->string('name');
-            $table->string('phone');
-            $table->string('address');
+            $table->string('email');
+            // $table->string('phone');
+            // $table->string('address');
             $table->integer('payment_mode');
             $table->integer('is_paid')->default(2);
 

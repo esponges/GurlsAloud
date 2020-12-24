@@ -4,11 +4,12 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\Product;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use function GuzzleHttp\json_decode;
+use Illuminate\Foundation\Auth\User;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-
-use function GuzzleHttp\json_decode;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CartTest extends TestCase
 {
@@ -18,21 +19,6 @@ class CartTest extends TestCase
 
     // public $item;
     // public $fakeCart;
-
-
-    // public function __construct()
-    // {
-    //     $this->item = Product::find(1);
-    //     $this->fakeCart =
-    //     \Cart::add(array(
-    //         'id' => $this->item->id,
-    //         'name' => $this->item->name,
-    //         'price' => $this->item->price,
-    //         'quantity' => 2,
-    //         'attributes' => array(),
-    //         'associatedModel' => $this->item
-    //     ));
-    // }
 
     /************************ */
 
@@ -71,13 +57,11 @@ class CartTest extends TestCase
         $response = $this->get('/cart');
         $response->assertOk();
 
-        $this->addFirstItemToCart();
+        // $this->addFirstItemToCart();
 
         $content = (\Cart::getContent());
-        $content = (array) $content;
-        // $items = \Cart::getContent();
-        // dd($items);
-        $response->assertJson($content);
+        $content =  array($content);
+        $response->assertJsonCount(0);
 
         // $response->assertViewIs('cart.index');
         // $response->assertViewHas('items', $items);
@@ -89,16 +73,13 @@ class CartTest extends TestCase
         $this->withoutExceptionHandling();
         // $this->withoutMiddleware();
 
-        // dd(\Cart::getContent());
         $id = 1;
         $item = Product::find($id);
-        // dd ($item);
 
         $this->assertEquals($item->id, $id);
 
         $response = $this->get(route('cart.add', $id));
         $response->assertOk();
-        // dd('hello');
 
         \Cart::add(array(
             'id' => $item->id,
@@ -108,8 +89,9 @@ class CartTest extends TestCase
             'attributes' => array(),
             'associatedModel' => $item
         ));
+        $json = array('added items to cart');
 
-        $response->assertRedirect('/');
+        $response->assertJson($json);
     }
 
     /** @test */
@@ -129,26 +111,32 @@ class CartTest extends TestCase
         // ));
 
         $this->addFirstItemToCart();
-        // dd(\Cart::getContent());
 
         $response = $this->get(route('cart.destroy', 1));
         $response->assertOk();
 
-        $response->assertViewIs('cart.index');
+        $response->assertJsonCount(0);
     }
 
     /** @test */
     public function proceedCheckout()
     {
         $this->withoutExceptionHandling();
-        $this->withoutMiddleware();
+        // $this->withoutMiddleware();
 
-        $response = $this->get(route('cart.checkout'));
-        $response->assertOk();
+        $response = $this->actingAs(User::first())
+                    ->get(route('cart.checkout'));
+        $response->assertStatus(302);
 
-        $this->addFirstItemToCart();
+        // $this->addFirstItemToCart();
+        // \Cart::clear();
 
-        $response->assertViewIs('cart.checkout');
+        if (\Cart::getTotal() != 0 ) {
+            $response->assertViewIs('cart.checkout');
+        } else {
+            // dd ('success');
+            $response->assertRedirect('/');
+        }
 
     }
 }
