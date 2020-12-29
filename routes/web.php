@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\ProductController;
@@ -39,6 +41,11 @@ Route::group(['prefix' => 'paypal'], function () {
     Route::get('/success/{orderId}', [PaypalController::class, 'getExpressCheckoutSuccess'])->name('paypal.success');
 
 });
+/* Display username in navbar */
+Route::get('/user-name', [HomeController::class, 'isAuth']);
+
+/* Logout username from navbar */
+Route::get('/log-out', [LoginController::class, 'logout']);
 
 Auth::routes();
 

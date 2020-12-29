@@ -25,4 +25,14 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function isAuth()
+    {
+        if (auth()->user()) {
+            $userName = auth()->user()->name;
+            // dd($userName);
+
+            return response()->json($userName);
+        }
+    }
 }

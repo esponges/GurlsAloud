@@ -86331,7 +86331,6 @@ var SingleProduct = /*#__PURE__*/function (_React$Component) {
 
       e.preventDefault();
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/cart/add-item/".concat(this.state.data.id)).then(function (res) {
-        console.log("success adding to cart", res.data);
         window.alert("".concat(_this2.state.data.name, " a\xF1adido al carrito"));
       });
     }
@@ -86632,7 +86631,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
  // import { Link } from "@reach/router";
 
 
-var userName;
 
 var ParentNav = /*#__PURE__*/function (_React$Component) {
   _inherits(ParentNav, _React$Component);
@@ -86648,7 +86646,8 @@ var ParentNav = /*#__PURE__*/function (_React$Component) {
     _this.handleScroll = _this.handleScroll.bind(_assertThisInitialized(_this));
     _this.state = {
       navbar: false,
-      isMounted: false
+      isMounted: false,
+      userName: ""
     };
     return _this;
   } // isLoggedIn () {
@@ -86668,12 +86667,22 @@ var ParentNav = /*#__PURE__*/function (_React$Component) {
   _createClass(ParentNav, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var _this2 = this;
+
       window.addEventListener("scroll", this.handleScroll, {
         passive: true
       });
       this.state.isMounted = true;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/user-name").then(function (res) {
-        console.log(res);
+        console.log(res.data);
+
+        _this2.setState({
+          userName: res.data
+        });
+      })["catch"](function (error) {
+        _this2.setState({
+          error: error.response.data.message
+        });
       });
     }
   }, {
@@ -86726,7 +86735,12 @@ var ParentNav = /*#__PURE__*/function (_React$Component) {
         "aria-hidden": "true"
       }), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Nav"].Link, {
         href: "#deets"
-      }, "Contacto"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Nav"].Link, {
+      }, "Contacto"), this.state.userName != "" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NavDropdown"], {
+        title: this.state.userName,
+        id: "collasible-nav-dropdown"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NavDropdown"].Item, {
+        href: "/log-out"
+      }, "Logout")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Nav"].Link, {
         href: "/login"
       }, "Inicia Sesi\xF3n"))));
     }

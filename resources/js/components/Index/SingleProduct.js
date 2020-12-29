@@ -20,7 +20,6 @@ class SingleProduct extends React.Component {
         e.preventDefault();
         Axios.get(`http://127.0.0.1:8000/cart/add-item/${this.state.data.id}`).then(
             res => {
-                console.log("success adding to cart", res.data);
                 window.alert(`${this.state.data.name} añadido al carrito`);
             }
         );
