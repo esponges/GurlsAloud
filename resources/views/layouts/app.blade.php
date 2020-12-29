@@ -85,7 +85,7 @@
 {{-- Jquery --}}
 <script src="{{asset("https://code.jquery.com/jquery-3.5.1.min.js")}}"></script>
 <script src="{{ asset("https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.js") }}"></script>
-<script src="{{ asset('js/scripts.js') }}"></script>
+<script src="{{ asset('js/jquery.js') }}"></script>
 
 
 </html>
