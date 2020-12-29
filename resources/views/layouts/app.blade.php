@@ -10,8 +10,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="https://kit.fontawesome.com/yourcode.js"></script>
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
+    {{-- <script src="https://kit.fontawesome.com/yourcode.js"></script> --}}
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -81,4 +81,11 @@
         </main>
     </div>
 </body>
+
+{{-- Jquery --}}
+<script src="{{asset("https://code.jquery.com/jquery-3.5.1.min.js")}}"></script>
+<script src="{{ asset("https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.js") }}"></script>
+<script src="{{ asset('js/scripts.js') }}"></script>
+
+
 </html>

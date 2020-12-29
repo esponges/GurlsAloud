@@ -1,52 +1,45 @@
 /*!
-    * Start Bootstrap - Agency v6.0.3 (https://startbootstrap.com/theme/agency)
-    * Copyright 2013-2020 Start Bootstrap
-    * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-agency/blob/master/LICENSE)
-    */
-    (function ($) {
+ * Start Bootstrap - Agency v6.0.3 (https://startbootstrap.com/theme/agency)
+ * Copyright 2013-2020 Start Bootstrap
+ * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-agency/blob/master/LICENSE)
+ */
+(function($) {
     "use strict"; // Start of use strict
 
     // Smooth scrolling using jQuery easing
-    $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function () {
-        if (
-            location.pathname.replace(/^\//, "") ==
-                this.pathname.replace(/^\//, "") &&
-            location.hostname == this.hostname
-        ) {
-            var target = $(this.hash);
-            target = target.length
-                ? target
-                : $("[name=" + this.hash.slice(1) + "]");
-            if (target.length) {
-                $("html, body").animate(
-                    {
-                        scrollTop: target.offset().top - 72,
-                    },
-                    1000,
-                    "easeInOutExpo"
-                );
-                return false;
-            }
-        }
-    });
+    // $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function () {
+    //     if (
+    //         location.pathname.replace(/^\//, "") ==
+    //             this.pathname.replace(/^\//, "") &&
+    //         location.hostname == this.hostname
+    //     ) {
+    //         var target = $(this.hash);
+    //         target = target.length
+    //             ? target
+    //             : $("[name=" + this.hash.slice(1) + "]");
+    //         if (target.length) {
+    //             $("html, body").animate(
+    //                 {
+    //                     scrollTop: target.offset().top - 72,
+    //                 },
+    //                 1000,
+    //                 "easeInOutExpo"
+    //             );
+    //             return false;
+    //         }
+    //     }
+    // });
 
-    // Closes responsive menu when a scroll trigger link is clicked
-    $(".js-scroll-trigger").on('click', function () {
-        $(".navbar-collapse").collapse("hide");
-    });
+    // // Closes responsive menu when a scroll trigger link is clicked
+    // $(".js-scroll-trigger").on('click', function () {
+    //     $(".navbar-collapse").collapse("hide");
+    // });
 
-    // Activate scrollspy to add active class to navbar items on scroll
-    $("body").scrollspy({
-        target: "#mainNav",
-        offset: 74,
-    });
-
-    if (document.getElementById('mainNav')) {
-        console.log('exists')
-    } else {
-        console.log('dont use JQuery with React. Both are libraries.')
-    }
-
+    // // Activate scrollspy to add active class to navbar items on scroll
+    // $("body").scrollspy({
+    //     target: "#mainNav",
+    //     offset: 74,
+    // });
 
     // Collapse Navbar
     // var navbarCollapse = function () {
@@ -60,4 +53,42 @@
     // navbarCollapse();
     // // Collapse the navbar when page is scrolled
     // $(window).scroll(navbarCollapse);
+
 })(jQuery); // End of use strict
+
+if (document.getElementById("checkout-form")) {
+    console.log("checkout-form exists");
+} else {
+    console.log("checkout-form doesn't exsist");
+}
+
+$("#checkout-form").validate({
+    rules: {
+        email: {
+            required: true,
+            email: true,
+        },
+        name: {
+            required: true,
+            minlength: 8,
+            maxlength: 50,
+        }
+    },
+    messages: {
+        email: {
+            required: "por favor ingresa un correo",
+            email: "por favor ingresa un correo",
+        },
+        name: {
+            required: "por favor ingresa un nombre",
+            minlength: "mínimo 8 letras",
+            maxlength: "máximo 50 letras",
+        }
+    },
+    submitHandler: function(form) {
+        const conf = confirm("Estás seguro que deseas continuar?");
+        if (conf == true) {
+            form.submit();
+        }
+    }
+});
