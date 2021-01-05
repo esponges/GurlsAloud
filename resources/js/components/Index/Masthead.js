@@ -8,7 +8,7 @@ class Masthead extends React.Component {
                 <header className="masthead">
                     <div className="container">
                         <div className="masthead-subheading">
-                            Welcome To Our Studio!
+                            Bienvenido a
                         </div>
                         <div className="masthead-heading text-uppercase">
                             Gurls Aloud
@@ -17,7 +17,13 @@ class Masthead extends React.Component {
                             className="btn btn-primary btn-xl text-uppercase js-scroll-trigger"
                             href="#services"
                         >
-                            Purchase
+                            Merchandising
+                        </a>
+                        <a
+                            className="btn btn-primary btn-xl text-uppercase js-scroll-trigger"
+                            href="#services"
+                        >
+                            Chicas Gurls
                         </a>
                     </div>
                 </header>

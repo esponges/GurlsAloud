@@ -85991,12 +85991,15 @@ var Masthead = /*#__PURE__*/function (_React$Component) {
         className: "container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "masthead-subheading"
-      }, "Welcome To Our Studio!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Bienvenido a"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "masthead-heading text-uppercase"
       }, "Gurls Aloud"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         className: "btn btn-primary btn-xl text-uppercase js-scroll-trigger",
         href: "#services"
-      }, "Purchase"))));
+      }, "Merchandising"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "btn btn-primary btn-xl text-uppercase js-scroll-trigger",
+        href: "#services"
+      }, "Chicas Gurls"))));
     }
   }]);
 
@@ -86717,15 +86720,22 @@ var ParentNav = /*#__PURE__*/function (_React$Component) {
         fixed: "top"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Navbar"].Brand, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
         to: "/"
-      }, "GURLS")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Navbar"].Toggle, {
+      }, "GURLS")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Navbar"].Brand, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Image"], {
+        src: "./assets/img/gurls-logo.png",
+        style: {
+          width: 40,
+          height: 40
+        },
+        rounded: true
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Navbar"].Toggle, {
         "aria-controls": "responsive-navbar-nav"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Navbar"].Collapse, {
         id: "responsive-navbar-nav"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Nav"], {
         className: "mr-auto"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Nav"].Link, {
-        href: "#features"
-      }, "Features"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Nav"].Link, {
+        href: ""
+      }, "TyC"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Nav"].Link, {
         href: "#pricing"
       }, "Pricing")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Nav"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
         to: "/cart",
@@ -86782,8 +86792,8 @@ module.exports = "/images/loader.gif?394bafc3cc4dfb3a0ee48c1f54669539";
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\react\React-Laravel\Maykinreact\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\react\React-Laravel\Maykinreact\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/Fer/Documents/GitHub/Maykinreact/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/Fer/Documents/GitHub/Maykinreact/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

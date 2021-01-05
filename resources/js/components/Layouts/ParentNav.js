@@ -1,6 +1,6 @@
 import Axios from "axios";
 import React from "react";
-import { Navbar, NavDropdown, Nav } from "react-bootstrap";
+import { Navbar, NavDropdown, Nav, Image } from "react-bootstrap";
 import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider";
 // import { Link } from "@reach/router";
 import { Link } from "react-router-dom";
@@ -71,10 +71,13 @@ class ParentNav extends React.Component {
                 <Navbar.Brand>
                     <Link to="/">GURLS</Link>
                 </Navbar.Brand>
+                <Navbar.Brand>
+                    <Image src="./assets/img/gurls-logo.png" style={{width:40, height:40}} rounded/>
+                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link href="#features">Features</Nav.Link>
+                        <Nav.Link href="">TyC</Nav.Link>
                         <Nav.Link href="#pricing">Pricing</Nav.Link>
                         {/* <NavDropdown
                             title="Dropdown"
