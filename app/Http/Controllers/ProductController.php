@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\UserProduct;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -59,7 +60,19 @@ class ProductController extends Controller
         // $product = Product::find(1);
 
         // return view('products.show', compact ('product'));
-        return response()->json($product, 200);
+
+
+        if (auth()->user() != null) {
+            $user = auth()->user();
+            $userProduct = UserProduct::where('user_id', $user->id)->where('product_id', $product->id)->get();
+            $UserHasPermission = sizeof($userProduct->toArray());
+
+            if ($UserHasPermission > 0) {
+                return response()->json($product, 200);
+            }
+            return response()->json('You don\'t have permission');
+        }
+        return response()->json('You don\'t have permission');
     }
 
     /**

@@ -4,11 +4,12 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Product;
+use App\Models\UserProduct;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class DatabaseSeeder extends Seeder
 {
@@ -30,5 +31,6 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
 
         Product::factory(10)->create();
+        UserProduct::factory(10)->create();
     }
 }
