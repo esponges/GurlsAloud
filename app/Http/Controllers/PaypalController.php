@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ConfirmationEmail;
 use App\Models\Order;
+use App\Models\UserProduct;
 use Illuminate\Http\Request;
+use App\Mail\ConfirmationEmail;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Srmklive\PayPal\Services\ExpressCheckout;
 
@@ -75,6 +77,15 @@ class PaypalController extends Controller
 
                 //send success email
                 Mail::to($order->user->email)->send(new ConfirmationEmail($order));
+
+                //create user permission
+                $orderItems = DB::table('order_items')->where('order_id', $order->id)->get();
+                foreach ($orderItems as $item ) {
+                    $userProduct = new UserProduct;
+                    $userProduct->user_id = $order->user_id;
+                    $userProduct->product_id = $item->product_id;
+                    $userProduct->save();
+                }
 
                 \Cart::clear();
 
