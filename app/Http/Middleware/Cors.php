@@ -17,7 +17,7 @@ class Cors
     public function handle(Request $request, Closure $next)
     {
         return $next($request)
-        ->header("Access-Control-Allow-Origin", '*')
+        ->header("Access-Control-Allow-Origin", 'http://localhost:19002/')
         ->header("Access-Control-Allow-Methods",'GET')
         ->header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Token-Auth, Authorization");
     }
