@@ -18,11 +18,11 @@ class SingleProduct extends React.Component {
 
     onClick(e) {
         e.preventDefault();
-        Axios.get(`http://127.0.0.1:8000/cart/add-item/${this.state.data.id}`).then(
-            res => {
-                window.alert(`${this.state.data.name} añadido al carrito`);
-            }
-        );
+        Axios.get(
+            `http://127.0.0.1:8000/cart/add-item/${this.props.match.params.id}`
+        ).then(() => {
+            window.alert(`${this.props.location.name} añadido al carrito`);
+        });
     }
 
     componentDidMount() {
@@ -34,49 +34,58 @@ class SingleProduct extends React.Component {
                 this.setState({ data: res.data });
             }
         );
-        console.log("component Did Mount - product", this.props.id);
+        console.log("component Did Mount");
     }
 
     render() {
         const { data } = this.state;
         return (
             <div>
+                {console.log(this.props.location.name)}
                 <ParentNav />
                 <Masthead />
                 <div className="container mt-5 mb-5" id="card-product">
                     <div className="row">
                         <div className="col-sm-12">
                             <div className="card">
-                                <div className="card-body">
-                                    <h5 className="card-title">{data.name}</h5>
-                                    <img
-                                        src="http://127.0.0.1:8000/assets/img/portfolio/girl.jpg"
-                                        alt=""
-                                    />
-                                    <p className="card-text">
-                                        {data.description}
-                                    </p>
-                                    <h5 className="card-title">
-                                        $ {data.price} mxn
-                                    </h5>
-                                    {/* <form onClick={this.onClick} method="get"> */}
-                                    {/* <input type="hidden" value={data.id} id="id"/> */}
-                                    <button
-                                        onClick={this.onClick}
-                                        className="btn btn-primary"
-                                        type="submit"
-                                    >
-                                        Añadir al carrito
-                                    </button>
-                                    {/* </form>{" "} */}
-                                    {"   "}
-                                    <Link
-                                        to={"/"}
-                                        className="btn btn-secondary btn-sm"
-                                    >
-                                        Regresar
-                                    </Link>
-                                </div>
+                                {data == "You don't have permission" ? (
+                                    "No tienes acceso a estas fotitos sepsis "
+                                ) : (
+                                    <div className="card-body">
+                                        <h5 className="card-title">
+                                            {data.name}
+                                        </h5>
+                                        <img
+                                            src="http://127.0.0.1:8000/assets/img/portfolio/girl.jpg"
+                                            alt=""
+                                        />
+                                        <p className="card-text">
+                                            {data.description}
+                                        </p>
+                                        <h5 className="card-title">
+                                            $ {data.price} mxn
+                                        </h5>
+                                        {/* <form onClick={this.onClick} method="get"> */}
+                                        {/* <input type="hidden" value={data.id} id="id"/> */}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="container mt-5">
+                                <button
+                                    onClick={this.onClick}
+                                    className="btn btn-primary"
+                                    type="submit"
+                                >
+                                    Compra tu acceso!
+                                </button>
+                                {/* </form>{" "} */}
+                                {"   "}
+                                <Link
+                                    to={"/"}
+                                    className="btn btn-secondary btn-sm"
+                                >
+                                    Regresar
+                                </Link>
                             </div>
                         </div>
                     </div>

@@ -20,6 +20,7 @@ class PortfolioGrid extends React.Component {
     render() {
         return (
             <div>
+                {console.log(this.state.data)}
                 <section className="page-section bg-light" id="portfolio">
                     <div className="container">
                         <div className="text-center">
@@ -40,7 +41,12 @@ class PortfolioGrid extends React.Component {
                                         <div className="portfolio-item">
                                             <Link
                                                 className="portfolio-link"
-                                                to={`/product/${data.id}`}
+                                                to={{
+                                                    pathname: `/product/${data.id}`,
+                                                    name: data.name
+                                                }}
+                                                // to={`/product/${data.id}`}
+                                                // name={data.name}
                                             >
                                                 <div className="portfolio-hover">
                                                     <div className="portfolio-hover-content">
