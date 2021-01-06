@@ -1,9 +1,8 @@
 import Axios from "axios";
 import React from "react";
-import { Navbar, NavDropdown, Nav, Image } from "react-bootstrap";
-import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider";
-// import { Link } from "@reach/router";
+import { Navbar, NavDropdown, Nav, Image, Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class ParentNav extends React.Component {
     constructor(props) {
@@ -13,31 +12,29 @@ class ParentNav extends React.Component {
             navbar: false,
             isMounted: false,
             userName: "",
+            cartContent: ""
         };
     }
-
-    // isLoggedIn () {
-    //     Axios.get("http://127.0.0.1:8000/user").then((res) => {
-    //         this.setState({
-    //             userName: res.data
-    //         }).catch((error) => {
-    //             this.setState({
-    //                 error: error.res.data.message
-    //             });
-    //         });
-    //     });
-    //     console.log(userName);
-    // }
 
     componentDidMount() {
         window.addEventListener("scroll", this.handleScroll, { passive: true });
         this.state.isMounted = true;
-        Axios.get("http://127.0.0.1:8000/user-name").then(res => {
-            console.log(res.data);
-            this.setState({userName: res.data });
-        }).catch(error => {
-            this.setState({error: error.response.data.message})
-        });
+        Axios.get("http://127.0.0.1:8000/user-name")
+            .then(res => {
+                // console.log(res.data);
+                this.setState({ userName: res.data });
+            })
+            .catch(error => {
+                this.setState({ error: error.response.data.message });
+            });
+        Axios.get("http://127.0.0.1:8000/cart")
+            .then(res => {
+                // console.log(Object.values(res.data).length, 'cart');
+                this.setState({ cartContent: Object.values(res.data).length });
+            })
+            .catch(error => {
+                this.setState({ error: error.response.data.message });
+            });
     }
 
     componentWillUnmount() {
@@ -60,11 +57,12 @@ class ParentNav extends React.Component {
     }
 
     render() {
+        const { navbar, cartContent, userName } = this.state;
         return (
             <Navbar
                 collapseOnSelect
                 expand="lg"
-                bg={this.state.navbar ? "dark" : "transparent"}
+                bg={navbar ? "dark" : "transparent"}
                 variant="dark"
                 fixed="top"
             >
@@ -72,31 +70,17 @@ class ParentNav extends React.Component {
                     <Link to="/">GURLS</Link>
                 </Navbar.Brand>
                 <Navbar.Brand>
-                    <Image src="./assets/img/gurls-logo.png" style={{width:40, height:40}} rounded/>
+                    <Image
+                        src="./assets/img/gurls-logo.png"
+                        style={{ width: 40, height: 40 }}
+                        rounded
+                    />
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link href="">TyC</Nav.Link>
                         <Nav.Link href="#pricing">Pricing</Nav.Link>
-                        {/* <NavDropdown
-                            title="Dropdown"
-                            id="collasible-nav-dropdown"
-                        >
-                            <NavDropdown.Item href="#action/3.1">
-                                Action
-                            </NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">
-                                Another action
-                            </NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">
-                                Something
-                            </NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">
-                                Separated link
-                            </NavDropdown.Item>
-                        </NavDropdown> */}
                     </Nav>
                     <Nav>
                         <Link to="/cart" className="mt-2">
@@ -104,21 +88,46 @@ class ParentNav extends React.Component {
                             <i
                                 className="fa fa-cart-plus"
                                 aria-hidden="true"
-                            ></i>{" "}
+                            ></i>
+                            {cartContent ? (
+                                <Badge pill variant="warning">
+                                    {cartContent}
+                                </Badge>
+                            ) : (
+                                ""
+                            )}
                         </Link>
                         <Nav.Link href="#deets">Contacto</Nav.Link>
-                        {this.state.userName != "" ? (
+                        {userName ? (
                             <NavDropdown
-                                title={this.state.userName}
+                                title={userName}
                                 id="collasible-nav-dropdown"
                             >
-                                <NavDropdown.Item href="/log-out">Logout</NavDropdown.Item>
+                                <NavDropdown.Item href="/log-out">
+                                    Logout
+                                </NavDropdown.Item>
                             </NavDropdown>
                         ) : (
                             <Nav.Link href="/login">Inicia Sesión</Nav.Link>
                         )}
                     </Nav>
                 </Navbar.Collapse>
+                <a
+                    href="https://www.instagram.com/veachy_swimwear"
+                    className="floating-btn-ig"
+                >
+                    <FontAwesomeIcon icon={["fab", "instagram"]} />
+                </a>
+                <Link to="/cart" className="material-icons floating-btn-cart">
+                    <FontAwesomeIcon icon={["fas", "shopping-cart"]} />
+                    {cartContent ? (
+                        <Badge pill variant="warning">
+                            {cartContent}
+                        </Badge>
+                    ) : (
+                        ""
+                    )}
+                </Link>
             </Navbar>
         );
     }

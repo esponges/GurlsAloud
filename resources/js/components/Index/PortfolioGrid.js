@@ -35,7 +35,7 @@ class PortfolioGrid extends React.Component {
                             {this.state.data.map(data => {
                                 return (
                                     <div
-                                        className="col-lg-4 col-sm-6 mb-4"
+                                        className="col-lg-6 mb-4"
                                         key={data.id}
                                     >
                                         <div className="portfolio-item">
@@ -43,7 +43,9 @@ class PortfolioGrid extends React.Component {
                                                 className="portfolio-link"
                                                 to={{
                                                     pathname: `/product/${data.id}`,
-                                                    name: data.name
+                                                    name: data.name,
+                                                    description: data.description,
+                                                    price: data.price
                                                 }}
                                                 // to={`/product/${data.id}`}
                                                 // name={data.name}
@@ -63,14 +65,19 @@ class PortfolioGrid extends React.Component {
                                                 <div className="portfolio-caption-heading">
                                                     {data.name}
                                                 </div>
-                                                <div className="portfolio-caption-subheading text-muted">
+                                                {/* <div className="portfolio-caption-subheading text-muted">
                                                     $ {data.price} mxn
-                                                </div>
+                                                </div> */}
                                                 <Link
-                                                    className="button"
-                                                    to={`/product/${data.id}`}
+                                                    className="btn btn-primary"
+                                                    to={{
+                                                        pathname: `/product/${data.id}`,
+                                                        name: data.name,
+                                                        description: data.description,
+                                                        price: data.price
+                                                    }}
                                                 >
-                                                    Detalles
+                                                    Más fotos
                                                 </Link>
                                             </div>
                                         </div>

@@ -10166,7 +10166,7 @@ header.masthead .masthead-heading {
   }
 }
 #portfolio .portfolio-item {
-  max-width: 25rem;
+  /* max-width: 25rem; */
   margin-left: auto;
   margin-right: auto;
 }
@@ -10194,7 +10194,7 @@ header.masthead .masthead-heading {
   opacity: 1;
 }
 #portfolio .portfolio-item .portfolio-caption {
-  padding: 1.5rem;
+  padding: 0.5rem;
   text-align: center;
   background-color: #fff;
 }
@@ -10509,3 +10509,78 @@ section#contact form#contactForm :-ms-input-placeholder {
     right: 0;
     margin: auto;
 }
+
+.floating-btn-ig {
+        width: 60px;
+        height: 60px;
+        background: rgb(224, 75, 212);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        border-radius: 50%;
+        color: white;
+        font-size: 20px;
+        box-shadow: 2px 2px 5px black;
+        position: fixed;
+        right: 71px;
+        bottom: 170px;
+        transition: background 0.25s;
+    }
+
+    .floating-btn-cart {
+        width: 100px;
+        height: 100px;
+        background: #fec503;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        border-radius: 50%;
+        color: white;
+        font-size: 20px;
+        box-shadow: 2px 2px 5px black;
+        position: fixed;
+        right: 50px;
+        bottom: 50px;
+        transition: background 0.25s;
+    }
+
+    @media (max-width: 991.98px) {
+        .floating-btn-ig {
+            width: 50px;
+            height: 50px;
+            background: rgb(224, 75, 212);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 20px;
+            box-shadow: 2px 2px 5px black;
+            position: fixed;
+            right: 10px;
+            bottom: 85px;
+            transition-duration: background 0.25s;
+        }
+        .floating-btn-cart {
+            width: 50px;
+            height: 50px;
+            background: #fec503;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 20px;
+            box-shadow: 2px 2px 5px black;
+            position: fixed;
+            right: 10px;
+            bottom: 20px;
+            transition-duration: background 0.25s;
+        }
+    }
+
+
