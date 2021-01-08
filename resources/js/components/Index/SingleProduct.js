@@ -10,6 +10,7 @@ class SingleProduct extends React.Component {
     constructor(props) {
         super(props);
         this.onClick = this.onClick.bind(this);
+        this.child = React.createRef(); // call child addedToCart function
         this.state = {
             data: {}
         };
@@ -17,6 +18,7 @@ class SingleProduct extends React.Component {
 
     onClick(e) {
         e.preventDefault();
+        this.child.current.addedToCart();
         Axios.get(
             `http://127.0.0.1:8000/cart/add-item/${this.props.match.params.id}`
         ).then(() => {
@@ -27,11 +29,11 @@ class SingleProduct extends React.Component {
     componentDidMount() {
         // const { id } = this.props.match.params;
         const id = this.props.match.params.id;
-        console.log(id);
+        // console.log(id);
         Axios.get(`http://127.0.0.1:8000/product/${id}`).then(res => {
             this.setState({ data: res.data });
         });
-        console.log("component Did Mount");
+        // console.log("component Did Mount");
     }
 
     render() {
@@ -39,8 +41,8 @@ class SingleProduct extends React.Component {
         const { location } = this.props;
         return (
             <div>
-                {console.log(this.props)}
-                <ParentNav />
+                {/* {console.log(this.props)} */}
+                <ParentNav ref={this.child}/>
                 <Masthead />
                 <div className="container mt-5 mb-5" id="card-product">
                     <div className="row">

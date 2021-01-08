@@ -16,6 +16,17 @@ class ParentNav extends React.Component {
         };
     }
 
+    addedToCart() {
+        Axios.get("http://127.0.0.1:8000/cart")
+            .then(res => {
+                // console.log(Object.values(res.data).length, 'cart');
+                this.setState({ cartContent: Object.values(res.data).length });
+            })
+            .catch(error => {
+                this.setState({ error: error.response.data.message });
+            });
+    }
+
     componentDidMount() {
         window.addEventListener("scroll", this.handleScroll, { passive: true });
         this.state.isMounted = true;
