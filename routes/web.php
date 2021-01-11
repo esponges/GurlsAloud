@@ -47,6 +47,10 @@ Route::get('/user-name', [HomeController::class, 'isAuth']);
 /* Logout username from navbar */
 Route::get('/log-out', [LoginController::class, 'logout']);
 
+/* Facebook Login */
+route::get('/sign-in/facebook', [LoginController::class, 'facebookLogin'])->name('sign-in.facebook');
+route::get('/sign-in/facebook/redirect', [LoginController::class, 'facebookRedirect']);
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

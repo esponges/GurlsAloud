@@ -89523,6 +89523,8 @@ var SingleProduct = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.onClick = _this.onClick.bind(_assertThisInitialized(_this));
+    _this.child = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createRef(); // call child addedToCart function
+
     _this.state = {
       data: {}
     };
@@ -89535,6 +89537,7 @@ var SingleProduct = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       e.preventDefault();
+      this.child.current.addedToCart();
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/cart/add-item/".concat(this.props.match.params.id)).then(function () {
         window.alert("".concat(_this2.props.location.name, " a\xF1adido al carrito"));
       });
@@ -89545,21 +89548,22 @@ var SingleProduct = /*#__PURE__*/function (_React$Component) {
       var _this3 = this;
 
       // const { id } = this.props.match.params;
-      var id = this.props.match.params.id;
-      console.log(id);
+      var id = this.props.match.params.id; // console.log(id);
+
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/product/".concat(id)).then(function (res) {
         _this3.setState({
           data: res.data
         });
-      });
-      console.log("component Did Mount");
+      }); // console.log("component Did Mount");
     }
   }, {
     key: "render",
     value: function render() {
       var data = this.state.data;
       var location = this.props.location;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, console.log(this.props), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Layouts_ParentNav__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Masthead__WEBPACK_IMPORTED_MODULE_4__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Layouts_ParentNav__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        ref: this.child
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Masthead__WEBPACK_IMPORTED_MODULE_4__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "container mt-5 mb-5",
         id: "card-product"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -89884,24 +89888,10 @@ var ParentNav = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(ParentNav, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
+    key: "addedToCart",
+    value: function addedToCart() {
       var _this2 = this;
 
-      window.addEventListener("scroll", this.handleScroll, {
-        passive: true
-      });
-      this.state.isMounted = true;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/user-name").then(function (res) {
-        // console.log(res.data);
-        _this2.setState({
-          userName: res.data
-        });
-      })["catch"](function (error) {
-        _this2.setState({
-          error: error.response.data.message
-        });
-      });
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/cart").then(function (res) {
         // console.log(Object.values(res.data).length, 'cart');
         _this2.setState({
@@ -89909,6 +89899,36 @@ var ParentNav = /*#__PURE__*/function (_React$Component) {
         });
       })["catch"](function (error) {
         _this2.setState({
+          error: error.response.data.message
+        });
+      });
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this3 = this;
+
+      window.addEventListener("scroll", this.handleScroll, {
+        passive: true
+      });
+      this.state.isMounted = true;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/user-name").then(function (res) {
+        // console.log(res.data);
+        _this3.setState({
+          userName: res.data
+        });
+      })["catch"](function (error) {
+        _this3.setState({
+          error: error.response.data.message
+        });
+      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/cart").then(function (res) {
+        // console.log(Object.values(res.data).length, 'cart');
+        _this3.setState({
+          cartContent: Object.values(res.data).length
+        });
+      })["catch"](function (error) {
+        _this3.setState({
           error: error.response.data.message
         });
       });
