@@ -1,54 +1,70 @@
 import Axios from "axios";
-import React from "react";
-import {Link} from 'react-router-dom';
+import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
-class PortfolioGrid extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: []
-        };
-    }
+export default function PortfolioGrid() {
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         data: []
+    //     };
+    // }
+    const [products, setData] = useState([]);
+    const [error, setError] = useState("");
 
-    componentDidMount() {
-        Axios.get("http://127.0.0.1:8000/products").then(res => {
-            this.setState({ data: res.data });
-        });
-        // console.log(res.data);
-    }
+    useEffect(() => {
+        Axios.get("http://127.0.0.1:8000/products")
+            .then(res => {
+                setData( res.data );
+            })
+            .catch(err => {
+                setError( err.message );
+            });
+    }, []);
 
-    render() {
-        return (
-            <div>
-                {console.log(this.state.data)}
-                <section className="page-section bg-light" id="portfolio">
-                    <div className="container">
-                        <div className="text-center">
-                            <h2 className="section-heading text-uppercase">
-                                Portfolio
-                            </h2>
-                            <h3 className="section-subheading text-muted">
-                                Lorem ipsum dolor sit amet consectetur.
-                            </h3>
-                        </div>
-                        <div className="row">
-                            {this.state.data.map(data => {
+    // componentDidMount() {
+    //     Axios.get("http://127.0.0.1:8000/products").then(res => {
+    //         this.setState({ data: res.data });
+    //     });
+    //     // console.log(res.data);
+    // }
+
+    // render() {
+    return (
+        <div>
+            {/* {products ? console.log(products.products) : ""} */}
+            <section className="page-section bg-light" id="portfolio">
+                <div className="container">
+                    <div className="text-center">
+                        <h2 className="section-heading text-uppercase">
+                            Portfolio
+                        </h2>
+                        <h3 className="section-subheading text-muted">
+                            Lorem ipsum dolor sit amet consectetur.
+                        </h3>
+                    </div>
+                    <div className="row">
+                        {products
+                            ? products.map(product => {
                                 return (
                                     <div
                                         className="col-lg-6 mb-4"
-                                        key={data.id}
+                                        key={product.id}
                                     >
                                         <div className="portfolio-item">
                                             <Link
                                                 className="portfolio-link"
                                                 to={{
-                                                    pathname: `/product/${data.id}`,
-                                                    name: data.name,
-                                                    description: data.description,
-                                                    price: data.price
+                                                    pathname: `/product/${product.id}`,
+                                                    state: {
+                                                        name: product.name,
+                                                        description:
+                                                            product.description,
+                                                        price: product.price
+                                                    }
                                                 }}
-                                                // to={`/product/${data.id}`}
-                                                // name={data.name}
+                                                // to={`/product/${product.id}`}
+                                                // name={product.name}
                                             >
                                                 <div className="portfolio-hover">
                                                     <div className="portfolio-hover-content">
@@ -63,18 +79,21 @@ class PortfolioGrid extends React.Component {
                                             </Link>
                                             <div className="portfolio-caption">
                                                 <div className="portfolio-caption-heading">
-                                                    {data.name}
+                                                    {product.name}
                                                 </div>
                                                 {/* <div className="portfolio-caption-subheading text-muted">
-                                                    $ {data.price} mxn
-                                                </div> */}
+                                                $ {product.price} mxn
+                                            </div> */}
                                                 <Link
                                                     className="btn btn-primary"
                                                     to={{
-                                                        pathname: `/product/${data.id}`,
-                                                        name: data.name,
-                                                        description: data.description,
-                                                        price: data.price
+                                                        pathname: `/product/${product.id}`,
+                                                        state: {
+                                                            name: product.name,
+                                                            description:
+                                                                product.description,
+                                                            price: product.price
+                                                        }
                                                     }}
                                                 >
                                                     Más fotos
@@ -83,13 +102,14 @@ class PortfolioGrid extends React.Component {
                                         </div>
                                     </div>
                                 );
-                            })}
-                        </div>
+                            })
+                            : ""}
                     </div>
-                </section>
-            </div>
-        );
-    }
+                </div>
+            </section>
+        </div>
+    );
 }
+// }
 
-export default PortfolioGrid;
+// export default PortfolioGrid;

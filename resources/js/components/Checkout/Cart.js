@@ -1,71 +1,104 @@
 import Axios from "axios";
-import React, { Component } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Footer from "../Layouts/Footer";
 import ParentNav from "../Layouts/ParentNav";
 import { Link } from "react-router-dom";
 import Loader from "./../../loader.gif";
-import CheckoutForm from "./CheckoutForm";
-import {Route} from 'react-router-dom';
 
-class Cart extends Component {
-    constructor(props) {
-        super(props);
-        this.removeItem = this.removeItem.bind(this);
-        this.state = {
-            cartItems: [{}],
-            loading: false,
-            error: ""
-        };
+const Cart = () => {
+    // constructor(props) {
+    //     super(props);
+    //     this.removeItem = this.removeItem.bind(this);
+    //     this.state = {
+    //         cartItems: [{}],
+    //         loading: false,
+    //         error: ""
+    //     };
+    // }
+    const [cartItems, setCartItems] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+    const childRef = useRef();
+
+    // removeItem(id) {
+    //     // e.preventDefault();
+    //     // const id = e.target.value;
+    //     this.setState({loading: true}, () => {
+    //         Axios.get(`http://127.0.0.1:8000/cart/destroy/${id}`);
+    //         Axios.get("http://127.0.0.1:8000/cart").then(res => {
+    //             this.setState({
+    //                 cartItems: res.data, loading: false
+    //             });
+    //         }).catch((error) =>
+    //         this.setState({
+    //             loading: false, error: error.res.data.message
+    //         }));
+    //     });
+    //     console.log(id);
+
+    //     console.log("force update!");
+    //     this.forceUpdate();
+    //     // window.alert("producto eliminado");
+    //     // this.useState(this.filter((diffId) => diffId !== id));
+    // }
+
+    const removeItem = (id) => {
+        // console.log('removed!' , id);
+        setLoading(true);
+        Axios.get(`http://127.0.0.1:8000/cart/destroy/${id}`);
+        Axios.get("http://127.0.0.1:8000/cart")
+            .then(res => {
+                setCartItems(res.data);
+                setLoading(false);
+            })
+            .catch(err => {
+                setError(err.message);
+                setLoading(false);
+            });
+        childRef.current.addedToCart();
     }
 
-    removeItem(id) {
-        // e.preventDefault();
-        // const id = e.target.value;
-        this.setState({loading: true}, () => {
-            Axios.get(`http://127.0.0.1:8000/cart/destroy/${id}`);
-            Axios.get("http://127.0.0.1:8000/cart").then(res => {
-                this.setState({
-                    cartItems: res.data, loading: false
-                });
-            }).catch((error) =>
-            this.setState({
-                loading: false, error: error.res.data.message
-            }));
-        });
-        console.log(id);
+    useEffect(() => {
+        setLoading(true);
+        Axios.get("http://127.0.0.1:8000/cart")
+        .then( res => {
+            setCartItems(res.data);
+            setLoading(false);
+        })
+        .catch( err => {
+            setError( err.message);
+            setLoading(false);
+        })
+    }, [])
 
-        console.log("force update!");
-        this.forceUpdate();
-        // window.alert("producto eliminado");
-        // this.useState(this.filter((diffId) => diffId !== id));
-    }
+    // componentDidMount() {
+    //     this.setState({ loading: true }, () => {
+    //         Axios.get("http://127.0.0.1:8000/cart")
+    //             .then(res => {
+    //                 this.setState({
+    //                     cartItems: res.data,
+    //                     loading: false
+    //                 });
+    //             })
+    //             .catch(error =>
+    //                 this.setState({
+    //                     loading: false,
+    //                     error: error.res.data.message
+    //                 })
+    //             );
+    //     });
+    //     console.log("successfully retrieved cart items");
+    // }
 
-    componentDidMount() {
-        this.setState({ loading: true }, () => {
-            Axios.get("http://127.0.0.1:8000/cart")
-                .then(res => {
-                    this.setState({
-                        cartItems: res.data,
-                        loading: false
-                    });
-                })
-                .catch(error =>
-                    this.setState({
-                        loading: false,
-                        error: error.res.data.message
-                    })
-                );
-        });
-        console.log("successfully retrieved cart items");
-    }
-
-    render() {
-        const { cartItems, loading, error } = this.state;
+    // render() {
+    //     const { cartItems, loading, error } = this.state;
         // console.log(cartItems);
 
         return (
             <div>
-                <ParentNav />
+                <ParentNav
+                ref={childRef}
+                />
                 {loading && (
                     <img className="loader" src={Loader} alt="Loader" />
                 )}
@@ -93,7 +126,7 @@ class Cart extends Component {
                                             <button
                                                 value={cartItem.id}
                                                 onClick={() =>
-                                                    this.removeItem(cartItem.id)
+                                                    removeItem(cartItem.id)
                                                 }
                                                 className="btn btn-danger"
                                             >
@@ -125,6 +158,6 @@ class Cart extends Component {
             </div>
         );
     }
-}
+// }
 
 export default Cart;
