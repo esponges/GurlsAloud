@@ -89909,10 +89909,18 @@ var ParentNav = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["forwardR
   // }
 
 
+  var handleScroll = function handleScroll(e) {
+    if (window.scrollY >= 80) {
+      setNavbar(true);
+    } else {
+      setNavbar(false);
+    }
+  };
+
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    window.addEventListener("scroll", handleScroll, {
-      passive: true
-    });
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    console.log('wtfffff');
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/user-name").then(function (res) {
       setUserName(res.data);
     })["catch"](function (error) {
@@ -89925,9 +89933,9 @@ var ParentNav = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["forwardR
       setError(err.message);
     }); // replacing componentWillUnmount
 
-    window.removeEventListener("scroll", handleScroll, {
-      passive: true
-    });
+    return function () {
+      return window.removeEventListener("scroll", handleScroll);
+    };
   }, []); //update navbar cart count when adding item to cart
 
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useImperativeHandle"])(ref, function () {
@@ -89975,20 +89983,8 @@ var ParentNav = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["forwardR
   //         passive: true
   //     });
   // }
-
-  var handleScroll = function handleScroll(e) {
-    if (window.scrollY >= 80) {
-      setNavbar({
-        navbar: true
-      });
-    } else {
-      setNavbar({
-        navbar: false
-      });
-    }
-  }; // render() {
+  // render() {
   // const { navbar, cartContent, userName } = this.state;
-
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Navbar"], {
     collapseOnSelect: true,

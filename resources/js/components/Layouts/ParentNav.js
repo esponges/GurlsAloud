@@ -20,8 +20,18 @@ const ParentNav = forwardRef((props, ref) => {
     //     };
     // }
 
+    const handleScroll = e => {
+        if (window.scrollY >= 80) {
+            setNavbar(true);
+        } else {
+            setNavbar(false);
+        }
+    };
+
     useEffect(() => {
-        window.addEventListener("scroll", handleScroll, { passive: true });
+        handleScroll();
+        window.addEventListener("scroll", handleScroll);
+        console.log('wtfffff')
         Axios.get("http://127.0.0.1:8000/user-name").
         then( res => {
             setUserName(res.data);
@@ -38,7 +48,7 @@ const ParentNav = forwardRef((props, ref) => {
             setError( err.message );
         });
         // replacing componentWillUnmount
-        window.removeEventListener("scroll", handleScroll, { passive: true });
+        return () => window.removeEventListener("scroll", handleScroll);
     }, [])
 
         //update navbar cart count when adding item to cart
@@ -91,18 +101,6 @@ const ParentNav = forwardRef((props, ref) => {
     //         passive: true
     //     });
     // }
-
-    const handleScroll = (e) => {
-        if (window.scrollY >= 80) {
-            setNavbar({
-                navbar: true
-            });
-        } else {
-            setNavbar({
-                navbar: false
-            });
-        }
-    }
 
     // render() {
         // const { navbar, cartContent, userName } = this.state;

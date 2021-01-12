@@ -4088,6 +4088,7 @@ input[type=button].btn-block {
   .navbar-expand-md {
     flex-flow: row nowrap;
     justify-content: flex-start;
+
   }
   .navbar-expand-md .navbar-nav {
     flex-direction: row;
@@ -4130,6 +4131,8 @@ input[type=button].btn-block {
   .navbar-expand-lg {
     flex-flow: row nowrap;
     justify-content: flex-start;
+    padding-left: 15%;
+    padding-right: 15%;
   }
   .navbar-expand-lg .navbar-nav {
     flex-direction: row;
