@@ -1,48 +1,73 @@
 import Axios from "axios";
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Footer from "../Layouts/Footer";
 import ParentNav from "../Layouts/ParentNav";
 import Masthead from "./Masthead";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 
-class SingleProduct extends React.Component {
-    constructor(props) {
-        super(props);
-        this.onClick = this.onClick.bind(this);
-        this.child = React.createRef(); // call child addedToCart function
-        this.state = {
-            data: {}
-        };
-    }
+function SingleProduct (props) {
+    // constructor(props) {
+    //     super(props);
+    //     this.onClick = this.onClick.bind(this);
+    //     this.child = React.createRef(); // call child addedToCart function
+    //     this.state = {
+    //         data: {}
+    //     };
+    // }
+    const [product, setProduct] = useState('');
+    const childRef = useRef();
 
-    onClick(e) {
+    // onClick(e) {
+    //     e.preventDefault();
+    //     this.child.current.addedToCart();
+    //     Axios.get(
+    //         `http://127.0.0.1:8000/cart/add-item/${props.match.params.id}`
+    //     ).then(() => {
+    //         window.alert(`${this.props.location.name} añadido al carrito`);
+    //     });
+    // }
+
+    const onClick = (e) => {
         e.preventDefault();
-        this.child.current.addedToCart();
+        // update cart count from navbar
         Axios.get(
-            `http://127.0.0.1:8000/cart/add-item/${this.props.match.params.id}`
+            `http://127.0.0.1:8000/cart/add-item/${props.match.params.id}`
         ).then(() => {
-            window.alert(`${this.props.location.name} añadido al carrito`);
+            window.alert(`${props.location.state.name} añadido al carrito`);
         });
-    }
+        childRef.current.addedToCart();
+    };
 
-    componentDidMount() {
-        // const { id } = this.props.match.params;
-        const id = this.props.match.params.id;
-        // console.log(id);
-        Axios.get(`http://127.0.0.1:8000/product/${id}`).then(res => {
-            this.setState({ data: res.data });
-        });
-        // console.log("component Did Mount");
-    }
+    // componentDidMount() {
+    //     // const { id } = this.props.match.params;
+    //     const id = this.props.match.params.id;
+    //     // console.log(id);
+    //     Axios.get(`http://127.0.0.1:8000/product/${id}`).then(res => {
+    //         this.setState({ data: res.data });
+    //     });
+    //     // console.log("component Did Mount");
+    // }
 
-    render() {
-        const { data } = this.state;
-        const { location } = this.props;
+    useEffect(() => {
+        // console.log(props);
+        const id = props.match.params.id;
+        Axios.get(`http://127.0.0.1:8000/product/${id}`)
+        .then( res => {
+            // console.log(res);
+            setProduct( res.data )
+        })
+    }, [])
+
+
+    // render() {
+        // const { data } = this.state;
+        // const { location } = this.props;
         return (
             <div>
-                {/* {console.log(this.props)} */}
-                <ParentNav ref={this.child}/>
+                <ParentNav
+                ref={childRef}
+                />
                 <Masthead />
                 <div className="container mt-5 mb-5" id="card-product">
                     <div className="row">
@@ -51,7 +76,7 @@ class SingleProduct extends React.Component {
                                 <div className="card">
                                     <div className="card-body">
                                         <h5 className="card-title">
-                                            {location.name}
+                                            {/* {location.name} */}
                                         </h5>
                                         <img
                                             className="img-fluid mt-2"
@@ -65,14 +90,15 @@ class SingleProduct extends React.Component {
                                         />
                                     </div>
                                     <p className="card-text">
-                                        {location.description}
+                                        {/* {location.description} */}
                                     </p>
                                 </div>
                             </div>
                         </div>
                         <div className="col-sm-12">
                             <div className="card">
-                                {data == "You don't have permission" ? (
+                                {product ===
+                                "You don't have permission" ? (
                                     <b>
                                         ¿Quieres ver más? Compra tu acceso para
                                         más fotos
@@ -100,17 +126,21 @@ class SingleProduct extends React.Component {
                             </div>
                             <div className="container mt-2">
                                 {/* </form>{" "} */}
-                                {data == "You don't have permission" ? (
+                                {product ==
+                                "You don't have permission" ? (
                                     <div>
                                         <button
-                                            onClick={this.onClick}
+                                            onClick={onClick}
                                             className="btn btn-primary"
                                             type="submit"
                                         >
                                             Compra tu acceso!
                                         </button>
                                         <p className="portfolio-caption-subheading text-muted">
-                                            <u>Sólo ${location.price} mxn</u>
+                                            <u>
+                                                Sólo $
+                                                {props.location.state.price} mxn
+                                            </u>
                                         </p>
                                     </div>
                                 ) : (
@@ -130,6 +160,6 @@ class SingleProduct extends React.Component {
             </div>
         );
     }
-}
+// }
 
 export default withRouter(SingleProduct);

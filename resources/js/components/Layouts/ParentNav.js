@@ -1,82 +1,121 @@
 import Axios from "axios";
-import React from "react";
+import React, { useState, useEffect, useImperativeHandle, forwardRef } from "react";
 import { Navbar, NavDropdown, Nav, Image, Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-class ParentNav extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleScroll = this.handleScroll.bind(this);
-        this.state = {
-            navbar: false,
-            isMounted: false,
-            userName: "",
-            cartContent: ""
-        };
-    }
+const ParentNav = forwardRef((props, ref) => {
+    const [ cartContent, setCartContent ] = useState([]);
+    const [ navbar, setNavbar ] = useState(false);
+    const [ userName, setUserName ] = useState('');
+    const [ error, setError ] = useState('');
+    // constructor(props) {
+    //     super(props);
+    //     this.handleScroll = this.handleScroll.bind(this);
+    //     this.state = {
+    //         navbar: false,
+    //         isMounted: false,
+    //         userName: "",
+    //         cartContent: ""
+    //     };
+    // }
 
-    addedToCart() {
-        Axios.get("http://127.0.0.1:8000/cart")
-            .then(res => {
-                // console.log(Object.values(res.data).length, 'cart');
-                this.setState({ cartContent: Object.values(res.data).length });
-            })
-            .catch(error => {
-                this.setState({ error: error.response.data.message });
-            });
-    }
-
-    componentDidMount() {
-        window.addEventListener("scroll", this.handleScroll, { passive: true });
-        this.state.isMounted = true;
-        Axios.get("http://127.0.0.1:8000/user-name")
-            .then(res => {
-                // console.log(res.data);
-                this.setState({ userName: res.data });
-            })
-            .catch(error => {
-                this.setState({ error: error.response.data.message });
-            });
-        Axios.get("http://127.0.0.1:8000/cart")
-            .then(res => {
-                // console.log(Object.values(res.data).length, 'cart');
-                this.setState({ cartContent: Object.values(res.data).length });
-            })
-            .catch(error => {
-                this.setState({ error: error.response.data.message });
-            });
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener("scroll", this.handleScroll, {
-            passive: true
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        Axios.get("http://127.0.0.1:8000/user-name").
+        then( res => {
+            setUserName(res.data);
+        })
+        .catch( error => {
+            setError( error.message );
         });
-    }
+        Axios.get("http://127.0.0.1:8000/cart")
+        .then( res => {
+            // console.log(Object.values(res.data).length);
+            setCartContent( Object.values(res.data).length )
+        })
+        .catch( err => {
+            setError( err.message );
+        });
+        // replacing componentWillUnmount
+        window.removeEventListener("scroll", handleScroll, { passive: true });
+    }, [])
 
-    handleScroll(e) {
-        // console.log(window.scrollY);
+        //update navbar cart count when adding item to cart
+    useImperativeHandle (ref, () => ({
+        addedToCart () {
+            Axios.get("http://127.0.0.1:8000/cart")
+            .then( res => {
+                setCartContent(Object.values(res.data).length);
+            })
+            .catch( err => {
+                setCartContent( err.message )
+            })
+        }
+    }))
+
+    // addedToCart() {
+        // Axios.get("http://127.0.0.1:8000/cart")
+        //     .then(res => {
+        //         // console.log(Object.values(res.data).length, 'cart');
+        //         this.setState({ cartContent: Object.values(res.data).length });
+        //     })
+        //     .catch(error => {
+        //         this.setState({ error: error.response.data.message });
+        //     });
+    // }
+
+    // componentDidMount() {
+    //     window.addEventListener("scroll", this.handleScroll, { passive: true });
+    //     this.state.isMounted = true;
+    //     Axios.get("http://127.0.0.1:8000/user-name")
+    //         .then(res => {
+    //             // console.log(res.data);
+    //             this.setState({ userName: res.data });
+    //         })
+    //         .catch(error => {
+    //             this.setState({ error: error.response.data.message });
+    //         });
+    //     Axios.get("http://127.0.0.1:8000/cart")
+    //         .then(res => {
+    //             // console.log(Object.values(res.data).length, 'cart');
+    //             this.setState({ cartContent: Object.values(res.data).length });
+    //         })
+    //         .catch(error => {
+    //             this.setState({ error: error.response.data.message });
+    //         });
+    // }
+
+    // componentWillUnmount() {
+    //     window.removeEventListener("scroll", this.handleScroll, {
+    //         passive: true
+    //     });
+    // }
+
+    const handleScroll = (e) => {
         if (window.scrollY >= 80) {
-            this.setState({
+            setNavbar({
                 navbar: true
             });
         } else {
-            this.setState({
+            setNavbar({
                 navbar: false
             });
         }
     }
 
-    render() {
-        const { navbar, cartContent, userName } = this.state;
+    // render() {
+        // const { navbar, cartContent, userName } = this.state;
         return (
             <Navbar
                 collapseOnSelect
                 expand="lg"
                 bg={navbar ? "dark" : "transparent"}
+                // bg="dark"
                 variant="dark"
                 fixed="top"
             >
+                {/* {userName ? console.log(userName) : false} */}
                 <Navbar.Brand>
                     <Link to="/">GURLS</Link>
                 </Navbar.Brand>
@@ -141,7 +180,7 @@ class ParentNav extends React.Component {
                 </Link>
             </Navbar>
         );
-    }
-}
+    });
+// }
 
 export default ParentNav;
