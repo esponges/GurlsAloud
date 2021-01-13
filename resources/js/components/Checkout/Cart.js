@@ -24,8 +24,8 @@ const Cart = () => {
     //     // e.preventDefault();
     //     // const id = e.target.value;
     //     this.setState({loading: true}, () => {
-    //         Axios.get(`http://127.0.0.1:8000/cart/destroy/${id}`);
-    //         Axios.get("http://127.0.0.1:8000/cart").then(res => {
+    //         Axios.get(`/cart/destroy/${id}`);
+    //         Axios.get("/cart").then(res => {
     //             this.setState({
     //                 cartItems: res.data, loading: false
     //             });
@@ -45,8 +45,8 @@ const Cart = () => {
     const removeItem = (id) => {
         // console.log('removed!' , id);
         setLoading(true);
-        Axios.get(`http://127.0.0.1:8000/cart/destroy/${id}`);
-        Axios.get("http://127.0.0.1:8000/cart")
+        Axios.get(`/cart/destroy/${id}`);
+        Axios.get("/cart")
             .then(res => {
                 setCartItems(res.data);
                 setLoading(false);
@@ -60,7 +60,7 @@ const Cart = () => {
 
     useEffect(() => {
         setLoading(true);
-        Axios.get("http://127.0.0.1:8000/cart")
+        Axios.get("/cart")
         .then( res => {
             setCartItems(res.data);
             setLoading(false);
@@ -73,7 +73,7 @@ const Cart = () => {
 
     // componentDidMount() {
     //     this.setState({ loading: true }, () => {
-    //         Axios.get("http://127.0.0.1:8000/cart")
+    //         Axios.get("/cart")
     //             .then(res => {
     //                 this.setState({
     //                     cartItems: res.data,

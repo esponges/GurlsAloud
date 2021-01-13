@@ -22,7 +22,7 @@ function SingleProduct (props) {
     //     e.preventDefault();
     //     this.child.current.addedToCart();
     //     Axios.get(
-    //         `http://127.0.0.1:8000/cart/add-item/${props.match.params.id}`
+    //         `/cart/add-item/${props.match.params.id}`
     //     ).then(() => {
     //         window.alert(`${this.props.location.name} añadido al carrito`);
     //     });
@@ -32,7 +32,7 @@ function SingleProduct (props) {
         e.preventDefault();
         // update cart count from navbar
         Axios.get(
-            `http://127.0.0.1:8000/cart/add-item/${props.match.params.id}`
+            `/cart/add-item/${props.match.params.id}`
         ).then(() => {
             window.alert(`${props.location.state.name} añadido al carrito`);
         });
@@ -43,7 +43,7 @@ function SingleProduct (props) {
     //     // const { id } = this.props.match.params;
     //     const id = this.props.match.params.id;
     //     // console.log(id);
-    //     Axios.get(`http://127.0.0.1:8000/product/${id}`).then(res => {
+    //     Axios.get(`/product/${id}`).then(res => {
     //         this.setState({ data: res.data });
     //     });
     //     // console.log("component Did Mount");
@@ -52,7 +52,7 @@ function SingleProduct (props) {
     useEffect(() => {
         // console.log(props);
         const id = props.match.params.id;
-        Axios.get(`http://127.0.0.1:8000/product/${id}`)
+        Axios.get(`/product/${id}`)
         .then( res => {
             // console.log(res);
             setProduct( res.data )
@@ -65,9 +65,7 @@ function SingleProduct (props) {
         // const { location } = this.props;
         return (
             <div>
-                <ParentNav
-                ref={childRef}
-                />
+                <ParentNav ref={childRef} />
                 <Masthead />
                 <div className="container mt-5 mb-5" id="card-product">
                     <div className="row">
@@ -95,57 +93,8 @@ function SingleProduct (props) {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-sm-12">
-                            <div className="card">
-                                {product ===
-                                "You don't have permission" ? (
-                                    <b>
-                                        ¿Quieres ver más? Compra tu acceso para
-                                        más fotos
-                                    </b>
-                                ) : (
-                                    <div className="card-body">
-                                        <div className="cart-text portfolio-caption-subheading text-muted">
-                                            Porque ya pagaste ;)...
-                                        </div>
-                                        <img
-                                            className="mt-2"
-                                            src="http://127.0.0.1:8000/assets/img/paid1.png"
-                                            alt=""
-                                        />
-                                        <img
-                                            className="mt-2"
-                                            src="http://127.0.0.1:8000/assets/img/paid2.png"
-                                            alt=""
-                                        />
-
-                                        {/* <form onClick={this.onClick} method="get"> */}
-                                        {/* <input type="hidden" value={data.id} id="id"/> */}
-                                    </div>
-                                )}
-                            </div>
+                        {product === "" ? (
                             <div className="container mt-2">
-                                {/* </form>{" "} */}
-                                {product ==
-                                "You don't have permission" ? (
-                                    <div>
-                                        <button
-                                            onClick={onClick}
-                                            className="btn btn-primary"
-                                            type="submit"
-                                        >
-                                            Compra tu acceso!
-                                        </button>
-                                        <p className="portfolio-caption-subheading text-muted">
-                                            <u>
-                                                Sólo $
-                                                {props.location.state.price} mxn
-                                            </u>
-                                        </p>
-                                    </div>
-                                ) : (
-                                    ""
-                                )}
                                 <Link
                                     to={"/"}
                                     className="btn btn-secondary btn-sm"
@@ -153,7 +102,66 @@ function SingleProduct (props) {
                                     Regresar
                                 </Link>
                             </div>
-                        </div>
+                        ) : (
+                            <div className="col-sm-12">
+                                <div className="card">
+                                    {product === "You don't have permission" ? (
+                                        <b>
+                                            ¿Quieres ver más? Compra tu acceso
+                                            para más fotos
+                                        </b>
+                                    ) : (
+                                        <div className="card-body">
+                                            <div className="cart-text portfolio-caption-subheading text-muted">
+                                                Porque ya pagaste ;)...
+                                            </div>
+                                            <img
+                                                className="mt-2"
+                                                src="/assets/img/paid1.png"
+                                                alt=""
+                                            />
+                                            <img
+                                                className="mt-2"
+                                                src="/assets/img/paid2.png"
+                                                alt=""
+                                            />
+
+                                            {/* <form onClick={this.onClick} method="get"> */}
+                                            {/* <input type="hidden" value={data.id} id="id"/> */}
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="container mt-2">
+                                    {/* </form>{" "} */}
+                                    {product == "You don't have permission" ? (
+                                        <div>
+                                            <button
+                                                onClick={onClick}
+                                                className="btn btn-primary"
+                                                type="submit"
+                                            >
+                                                Compra tu acceso!
+                                            </button>
+                                            <p className="portfolio-caption-subheading text-muted">
+                                                <u>
+                                                    Sólo $
+                                                    {props.location.state.price}{" "}
+                                                    mxn
+                                                </u>
+                                            </p>
+                                        </div>
+                                    ) : (
+                                        ""
+                                    )}
+                                    <Link
+                                        to={"/"}
+                                        className="btn btn-secondary btn-sm"
+                                    >
+                                        Regresar
+                                    </Link>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
                 <Footer />

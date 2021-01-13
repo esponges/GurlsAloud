@@ -88542,8 +88542,8 @@ var Cart = function Cart() {
   //     // e.preventDefault();
   //     // const id = e.target.value;
   //     this.setState({loading: true}, () => {
-  //         Axios.get(`http://127.0.0.1:8000/cart/destroy/${id}`);
-  //         Axios.get("http://127.0.0.1:8000/cart").then(res => {
+  //         Axios.get(`/cart/destroy/${id}`);
+  //         Axios.get("/cart").then(res => {
   //             this.setState({
   //                 cartItems: res.data, loading: false
   //             });
@@ -88562,8 +88562,8 @@ var Cart = function Cart() {
   var removeItem = function removeItem(id) {
     // console.log('removed!' , id);
     setLoading(true);
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/cart/destroy/".concat(id));
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/cart").then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/cart/destroy/".concat(id));
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/cart").then(function (res) {
       setCartItems(res.data);
       setLoading(false);
     })["catch"](function (err) {
@@ -88575,7 +88575,7 @@ var Cart = function Cart() {
 
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
     setLoading(true);
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/cart").then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/cart").then(function (res) {
       setCartItems(res.data);
       setLoading(false);
     })["catch"](function (err) {
@@ -88584,7 +88584,7 @@ var Cart = function Cart() {
     });
   }, []); // componentDidMount() {
   //     this.setState({ loading: true }, () => {
-  //         Axios.get("http://127.0.0.1:8000/cart")
+  //         Axios.get("/cart")
   //             .then(res => {
   //                 this.setState({
   //                     cartItems: res.data,
@@ -88747,7 +88747,7 @@ var CheckoutForm = function CheckoutForm(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "container mt-5"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"], {
-    action: "http://127.0.0.1:8000/order/create",
+    action: "/order/create",
     method: "post"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     type: "hidden",
@@ -88943,7 +88943,7 @@ var About = /*#__PURE__*/function (_React$Component) {
         className: "timeline-image"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "rounded-circle img-fluid",
-        src: "http://127.0.0.1:8000/assets/img/about/1.jpg",
+        src: "/assets/img/about/1.jpg",
         alt: ""
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "timeline-panel"
@@ -89037,7 +89037,7 @@ var Clients = /*#__PURE__*/function (_React$Component) {
         href: "#!"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "img-fluid d-block mx-auto",
-        src: "http://127.0.0.1:8000/assets/img/logos/cards.jpg",
+        src: "/assets/img/logos/cards.jpg",
         alt: ""
       })))))));
     }
@@ -89309,7 +89309,7 @@ var ProductModal = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/products").then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/products").then(function (res) {
         _this2.setState({
           data: res.data
         });
@@ -89421,13 +89421,13 @@ function PortfolioGrid() {
       setError = _useState4[1];
 
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/products").then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/products").then(function (res) {
       setData(res.data);
     })["catch"](function (err) {
       setError(err.message);
     });
   }, []); // componentDidMount() {
-  //     Axios.get("http://127.0.0.1:8000/products").then(res => {
+  //     Axios.get("/products").then(res => {
   //         this.setState({ data: res.data });
   //     });
   //     // console.log(res.data);
@@ -89552,7 +89552,7 @@ function SingleProduct(props) {
   //     e.preventDefault();
   //     this.child.current.addedToCart();
   //     Axios.get(
-  //         `http://127.0.0.1:8000/cart/add-item/${props.match.params.id}`
+  //         `/cart/add-item/${props.match.params.id}`
   //     ).then(() => {
   //         window.alert(`${this.props.location.name} añadido al carrito`);
   //     });
@@ -89561,7 +89561,7 @@ function SingleProduct(props) {
   var onClick = function onClick(e) {
     e.preventDefault(); // update cart count from navbar
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/cart/add-item/".concat(props.match.params.id)).then(function () {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/cart/add-item/".concat(props.match.params.id)).then(function () {
       window.alert("".concat(props.location.state.name, " a\xF1adido al carrito"));
     });
     childRef.current.addedToCart();
@@ -89569,7 +89569,7 @@ function SingleProduct(props) {
   //     // const { id } = this.props.match.params;
   //     const id = this.props.match.params.id;
   //     // console.log(id);
-  //     Axios.get(`http://127.0.0.1:8000/product/${id}`).then(res => {
+  //     Axios.get(`/product/${id}`).then(res => {
   //         this.setState({ data: res.data });
   //     });
   //     // console.log("component Did Mount");
@@ -89579,7 +89579,7 @@ function SingleProduct(props) {
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
     // console.log(props);
     var id = props.match.params.id;
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/product/".concat(id)).then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/product/".concat(id)).then(function (res) {
       // console.log(res);
       setProduct(res.data);
     });
@@ -89614,7 +89614,12 @@ function SingleProduct(props) {
     alt: ""
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
     className: "card-text"
-  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+  })))), product === "" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "container mt-2"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
+    to: "/",
+    className: "btn btn-secondary btn-sm"
+  }, "Regresar")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "col-sm-12"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "card"
@@ -89624,11 +89629,11 @@ function SingleProduct(props) {
     className: "cart-text portfolio-caption-subheading text-muted"
   }, "Porque ya pagaste ;)..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
     className: "mt-2",
-    src: "http://127.0.0.1:8000/assets/img/paid1.png",
+    src: "/assets/img/paid1.png",
     alt: ""
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
     className: "mt-2",
-    src: "http://127.0.0.1:8000/assets/img/paid2.png",
+    src: "/assets/img/paid2.png",
     alt: ""
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "container mt-2"
@@ -89638,7 +89643,7 @@ function SingleProduct(props) {
     type: "submit"
   }, "Compra tu acceso!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
     className: "portfolio-caption-subheading text-muted"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("u", null, "S\xF3lo $", props.location.state.price, " mxn"))) : "", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("u", null, "S\xF3lo $", props.location.state.price, " ", "mxn"))) : "", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
     to: "/",
     className: "btn btn-secondary btn-sm"
   }, "Regresar"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Layouts_Footer__WEBPACK_IMPORTED_MODULE_2__["default"], null));
@@ -89717,7 +89722,7 @@ var Team = /*#__PURE__*/function (_React$Component) {
         className: "team-member"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "mx-auto rounded-circle",
-        src: "http://127.0.0.1:8000/assets/img/team/maykin.jpg",
+        src: "/assets/img/team/maykin.jpg",
         alt: ""
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Maykin Guapin"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "text-muted"
@@ -89910,7 +89915,7 @@ var ParentNav = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["forwardR
 
 
   var handleScroll = function handleScroll(e) {
-    if (window.scrollY >= 80) {
+    if (window.scrollY >= 780) {
       setNavbar(true);
     } else {
       setNavbar(false);
@@ -89920,13 +89925,12 @@ var ParentNav = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["forwardR
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
     handleScroll();
     window.addEventListener("scroll", handleScroll);
-    console.log('wtfffff');
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/user-name").then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/user-name").then(function (res) {
       setUserName(res.data);
     })["catch"](function (error) {
       setError(error.message);
     });
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/cart").then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/cart").then(function (res) {
       // console.log(Object.values(res.data).length);
       setCartContent(Object.values(res.data).length);
     })["catch"](function (err) {
@@ -89941,7 +89945,7 @@ var ParentNav = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["forwardR
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useImperativeHandle"])(ref, function () {
     return {
       addedToCart: function addedToCart() {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/cart").then(function (res) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/cart").then(function (res) {
           setCartContent(Object.values(res.data).length);
         })["catch"](function (err) {
           setCartContent(err.message);
@@ -89949,7 +89953,7 @@ var ParentNav = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["forwardR
       }
     };
   }); // addedToCart() {
-  // Axios.get("http://127.0.0.1:8000/cart")
+  // Axios.get("/cart")
   //     .then(res => {
   //         // console.log(Object.values(res.data).length, 'cart');
   //         this.setState({ cartContent: Object.values(res.data).length });
@@ -89961,7 +89965,7 @@ var ParentNav = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["forwardR
   // componentDidMount() {
   //     window.addEventListener("scroll", this.handleScroll, { passive: true });
   //     this.state.isMounted = true;
-  //     Axios.get("http://127.0.0.1:8000/user-name")
+  //     Axios.get("/user-name")
   //         .then(res => {
   //             // console.log(res.data);
   //             this.setState({ userName: res.data });
@@ -89969,7 +89973,7 @@ var ParentNav = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["forwardR
   //         .catch(error => {
   //             this.setState({ error: error.response.data.message });
   //         });
-  //     Axios.get("http://127.0.0.1:8000/cart")
+  //     Axios.get("/cart")
   //         .then(res => {
   //             // console.log(Object.values(res.data).length, 'cart');
   //             this.setState({ cartContent: Object.values(res.data).length });

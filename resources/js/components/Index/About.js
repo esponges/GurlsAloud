@@ -19,7 +19,7 @@ class About extends React.Component {
                                 <div className="timeline-image">
                                     <img
                                         className="rounded-circle img-fluid"
-                                        src="http://127.0.0.1:8000/assets/img/about/1.jpg"
+                                        src="/assets/img/about/1.jpg"
                                         alt=""
                                     />
                                 </div>

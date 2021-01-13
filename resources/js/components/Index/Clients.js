@@ -18,7 +18,7 @@ class Clients extends React.Component {
                                 <a href="#!">
                                     <img
                                         className="img-fluid d-block mx-auto"
-                                        src="http://127.0.0.1:8000/assets/img/logos/cards.jpg"
+                                        src="/assets/img/logos/cards.jpg"
                                         alt=""
                                     />
                                 </a>

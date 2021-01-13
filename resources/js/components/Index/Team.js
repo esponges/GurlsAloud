@@ -18,7 +18,7 @@ class Team extends React.Component {
                             <div className="team-member">
                                 <img
                                     className="mx-auto rounded-circle"
-                                    src="http://127.0.0.1:8000/assets/img/team/maykin.jpg"
+                                    src="/assets/img/team/maykin.jpg"
                                     alt=""
                                 />
                                 <h4>Maykin Guapin</h4>

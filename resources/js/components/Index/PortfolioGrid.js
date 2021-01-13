@@ -13,7 +13,7 @@ export default function PortfolioGrid() {
     const [error, setError] = useState("");
 
     useEffect(() => {
-        Axios.get("http://127.0.0.1:8000/products")
+        Axios.get("/products")
             .then(res => {
                 setData( res.data );
             })
@@ -23,7 +23,7 @@ export default function PortfolioGrid() {
     }, []);
 
     // componentDidMount() {
-    //     Axios.get("http://127.0.0.1:8000/products").then(res => {
+    //     Axios.get("/products").then(res => {
     //         this.setState({ data: res.data });
     //     });
     //     // console.log(res.data);

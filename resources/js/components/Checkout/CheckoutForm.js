@@ -4,7 +4,7 @@ import {Form, Button} from 'react-bootstrap';
 const CheckoutForm = (props) => {
     return (
         <div className="container mt-5">
-            <Form action="http://127.0.0.1:8000/order/create" method="post">
+            <Form action="/order/create" method="post">
                 {/* <input type="hidden" value={props.passToken} name="_token" /> */}
                 <input type="hidden" value={csrf_token} name="_token" />
                 <Form.Group controlId="exampleForm.ControlInput1">

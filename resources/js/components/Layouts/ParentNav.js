@@ -21,7 +21,7 @@ const ParentNav = forwardRef((props, ref) => {
     // }
 
     const handleScroll = e => {
-        if (window.scrollY >= 80) {
+        if (window.scrollY >= 780) {
             setNavbar(true);
         } else {
             setNavbar(false);
@@ -31,15 +31,14 @@ const ParentNav = forwardRef((props, ref) => {
     useEffect(() => {
         handleScroll();
         window.addEventListener("scroll", handleScroll);
-        console.log('wtfffff')
-        Axios.get("http://127.0.0.1:8000/user-name").
+        Axios.get("/user-name").
         then( res => {
             setUserName(res.data);
         })
         .catch( error => {
             setError( error.message );
         });
-        Axios.get("http://127.0.0.1:8000/cart")
+        Axios.get("/cart")
         .then( res => {
             // console.log(Object.values(res.data).length);
             setCartContent( Object.values(res.data).length )
@@ -54,7 +53,7 @@ const ParentNav = forwardRef((props, ref) => {
         //update navbar cart count when adding item to cart
     useImperativeHandle (ref, () => ({
         addedToCart () {
-            Axios.get("http://127.0.0.1:8000/cart")
+            Axios.get("/cart")
             .then( res => {
                 setCartContent(Object.values(res.data).length);
             })
@@ -65,7 +64,7 @@ const ParentNav = forwardRef((props, ref) => {
     }))
 
     // addedToCart() {
-        // Axios.get("http://127.0.0.1:8000/cart")
+        // Axios.get("/cart")
         //     .then(res => {
         //         // console.log(Object.values(res.data).length, 'cart');
         //         this.setState({ cartContent: Object.values(res.data).length });
@@ -78,7 +77,7 @@ const ParentNav = forwardRef((props, ref) => {
     // componentDidMount() {
     //     window.addEventListener("scroll", this.handleScroll, { passive: true });
     //     this.state.isMounted = true;
-    //     Axios.get("http://127.0.0.1:8000/user-name")
+    //     Axios.get("/user-name")
     //         .then(res => {
     //             // console.log(res.data);
     //             this.setState({ userName: res.data });
@@ -86,7 +85,7 @@ const ParentNav = forwardRef((props, ref) => {
     //         .catch(error => {
     //             this.setState({ error: error.response.data.message });
     //         });
-    //     Axios.get("http://127.0.0.1:8000/cart")
+    //     Axios.get("/cart")
     //         .then(res => {
     //             // console.log(Object.values(res.data).length, 'cart');
     //             this.setState({ cartContent: Object.values(res.data).length });

@@ -11,7 +11,7 @@ class ProductModal extends React.Component {
     }
 
     componentDidMount () {
-        Axios.get("http://127.0.0.1:8000/products")
+        Axios.get("/products")
         .then(res => {
             this.setState({data: res.data})
         })
