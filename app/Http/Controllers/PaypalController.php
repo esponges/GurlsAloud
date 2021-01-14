@@ -18,7 +18,7 @@ class PaypalController extends Controller
         $cart = $this->getCheckoutData($id);
 
         try {
-            $response = $this->provider->setExpressCheckout($cart);
+            $response = $this->provider->setExpressCheckout($cart, false);
 
             return redirect($response['paypal_link']);
             //taking you to Paypal payment
@@ -46,7 +46,7 @@ class PaypalController extends Controller
             'items' => $cartItems,
             'return_url' => route('paypal.success', $id),
             'cancel_url' => route('index'),
-            'invoice_id' => config('paypal.invoice_prefix') . '_' . $id,
+            'invoice_id' => $id,
             'invoice_description' => "Order #$id Invoice",
             'total' => \Cart::getTotal()
         ];
