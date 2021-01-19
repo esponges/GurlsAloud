@@ -9,13 +9,13 @@ export default function PortfolioGrid() {
     //         data: []
     //     };
     // }
-    const [products, setData] = useState([]);
+    const [products, setProducts] = useState([]);
     const [error, setError] = useState("");
 
     useEffect(() => {
         Axios.get("/products")
             .then(res => {
-                setData( res.data );
+                setProducts( res.data );
             })
             .catch(err => {
                 setError( err.message );

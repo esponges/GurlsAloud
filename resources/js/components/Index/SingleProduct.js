@@ -170,4 +170,4 @@ function SingleProduct (props) {
     }
 // }
 
-export default withRouter(SingleProduct);
+export default withRouter(SingleProduct); // get match, location and history props with withRouter component
